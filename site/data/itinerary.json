@@ -1,0 +1,243 @@
+[
+  {
+    "day": 0,
+    "date": "2026-04-14",
+    "title": "Departure",
+    "theme": "travel",
+    "tone": "warm",
+    "summary": "Leaving home. The Haines brothers scatter from airports across the country, all converging on Paris.",
+    "lodging": null,
+    "stops": []
+  },
+  {
+    "day": 1,
+    "date": "2026-04-15",
+    "title": "Arrival & Travel to Normandy",
+    "theme": "travel",
+    "tone": "warm",
+    "summary": "Five brothers reunite at Charles de Gaulle. Rental car secured, we drive three hours west to Bayeux — the staging ground for tomorrow's pilgrimage to the beaches.",
+    "lodging": "Hôtel Le Bayeux, 9 Rue Tardif, 14400 Bayeux, France",
+    "stops": [
+      {
+        "name": "Charles de Gaulle Airport",
+        "lat": 49.0097,
+        "lng": 2.5479,
+        "time": "09:30",
+        "note": "Doug, Nathan & Talmage arrive first. Josh at 11:30, Cam last at 12:40."
+      },
+      {
+        "name": "Bayeux",
+        "lat": 49.2764,
+        "lng": -0.7030,
+        "time": "16:00",
+        "note": "Arrive at the hotel. Groceries, dinner, early to bed."
+      }
+    ]
+  },
+  {
+    "day": 2,
+    "date": "2026-04-16",
+    "title": "Normandy — D-Day Beaches",
+    "theme": "normandy",
+    "tone": "archival",
+    "summary": "A full day walking the ground where the liberation of Europe began. West to east across the beaches, cemeteries, and bluffs of the Normandy coast.",
+    "lodging": "Hôtel Le Bayeux, 9 Rue Tardif, 14400 Bayeux, France",
+    "stops": [
+      {
+        "name": "Omaha Beach",
+        "lat": 49.3694,
+        "lng": -0.8809,
+        "time": "07:00",
+        "note": "Where the heaviest losses occurred on June 6, 1944."
+      },
+      {
+        "name": "Normandy American Cemetery",
+        "lat": 49.3592,
+        "lng": -0.8548,
+        "time": "13:00",
+        "note": "9,388 American graves overlooking Omaha Beach."
+      },
+      {
+        "name": "Pointe du Hoc",
+        "lat": 49.3958,
+        "lng": -0.9893,
+        "time": null,
+        "note": "Ranger assault point — craters still visible."
+      }
+    ]
+  },
+  {
+    "day": 3,
+    "date": "2026-04-17",
+    "title": "Normandy Morning & Drive to Aachen",
+    "theme": "normandy",
+    "tone": "archival",
+    "summary": "Last morning on the Normandy coast, catching sites we missed. Then a five-hour drive east across France, Belgium, and into Germany. Grandpa's war is about to become real.",
+    "lodging": "Airbnb, Feldchen 18-20, Aachen, Nordrhein-Westfalen 52070",
+    "stops": [
+      {
+        "name": "Bayeux (departure)",
+        "lat": 49.2764,
+        "lng": -0.7030,
+        "time": "10:00",
+        "note": "Final Normandy stops, then eastbound."
+      },
+      {
+        "name": "Aachen",
+        "lat": 50.7753,
+        "lng": 6.0839,
+        "time": "17:00",
+        "note": "Arrive at the Airbnb. Dinner and grocery run."
+      }
+    ]
+  },
+  {
+    "day": 4,
+    "date": "2026-04-18",
+    "title": "Grandpa's WWII Sites",
+    "theme": "wwii-grandpa",
+    "tone": "archival",
+    "summary": "The heart of the trip. Walking the ground Grandpa walked — the brick factory at Huchlen, Frenzerburg Castle, the forests around Schevenhütte where he first saw combat, and Höfen where he was wounded. Albert Trosdorf, a local historian, guides us through the morning.",
+    "lodging": "Airbnb, Feldchen 18-20, Aachen, Nordrhein-Westfalen 52070",
+    "stops": [
+      {
+        "name": "Langerwehe-Merode (Albert Trosdorf)",
+        "lat": 50.8248,
+        "lng": 6.3219,
+        "time": "08:00",
+        "note": "Pick up Albert at Schlossstrasse 12. Tour of the brick factory and Frenzerburg Castle."
+      },
+      {
+        "name": "Frenzerburg Castle",
+        "lat": 50.8299,
+        "lng": 6.3433,
+        "time": "09:00",
+        "note": "Where Grandpa's unit was positioned."
+      },
+      {
+        "name": "Hürtgen Forest",
+        "lat": 50.7613,
+        "lng": 6.3308,
+        "time": "10:00",
+        "note": "The forest where some of the war's bloodiest fighting occurred."
+      },
+      {
+        "name": "Schevenhütte",
+        "lat": 50.7911,
+        "lng": 6.4423,
+        "time": "11:00",
+        "note": "Where Grandpa first arrived on the front lines."
+      },
+      {
+        "name": "Vossenack / Schmidt",
+        "lat": 50.5330,
+        "lng": 6.2820,
+        "time": "13:00",
+        "note": "Key Hürtgen Forest battle sites."
+      },
+      {
+        "name": "Höfen area",
+        "lat": 50.4451,
+        "lng": 6.2785,
+        "time": "15:00",
+        "note": "Near where Grandpa was wounded."
+      },
+      {
+        "name": "Aachen Cathedral",
+        "lat": 50.7742,
+        "lng": 6.0840,
+        "time": "18:00",
+        "note": "Evening in Aachen before heading back."
+      }
+    ]
+  },
+  {
+    "day": 5,
+    "date": "2026-04-19",
+    "title": "Aachen Morning & Travel to Paris",
+    "theme": "travel",
+    "tone": "warm",
+    "summary": "A quieter morning — last looks at the Hürtgen area or exploring Aachen. Dad and Uncle Doug split off by train. The rest of us drive the van back toward Paris.",
+    "lodging": "Airbnb, 23 Rue de Nantes, Mitry-Mory, Île-de-France 77290",
+    "stops": [
+      {
+        "name": "Aachen (departure)",
+        "lat": 50.7753,
+        "lng": 6.0839,
+        "time": "10:00",
+        "note": "Check out. Dad and Doug take trains. Brothers drive to Paris."
+      },
+      {
+        "name": "Mitry-Mory (north of Paris)",
+        "lat": 48.9425,
+        "lng": 2.5713,
+        "time": "17:00",
+        "note": "Airbnb near CDG for the night."
+      }
+    ]
+  },
+  {
+    "day": 6,
+    "date": "2026-04-20",
+    "title": "Paris",
+    "theme": "paris",
+    "tone": "warm",
+    "summary": "Our last full day together. The brothers take Paris — the Eiffel Tower, the Seine, the streets. A different kind of history, a lighter step. After five days of walking hallowed ground, we walk the City of Light.",
+    "lodging": "Airbnb, 23 Rue de Nantes, Mitry-Mory, Île-de-France 77290",
+    "stops": [
+      {
+        "name": "Eiffel Tower",
+        "lat": 48.8584,
+        "lng": 2.2945,
+        "time": "08:00",
+        "note": null
+      },
+      {
+        "name": "Arc de Triomphe",
+        "lat": 48.8738,
+        "lng": 2.2950,
+        "time": null,
+        "note": null
+      },
+      {
+        "name": "Champs-Élysées",
+        "lat": 48.8698,
+        "lng": 2.3076,
+        "time": null,
+        "note": null
+      },
+      {
+        "name": "Seine River",
+        "lat": 48.8553,
+        "lng": 2.3125,
+        "time": null,
+        "note": null
+      },
+      {
+        "name": "Notre-Dame area",
+        "lat": 48.8530,
+        "lng": 2.3477,
+        "time": null,
+        "note": null
+      }
+    ]
+  },
+  {
+    "day": 7,
+    "date": "2026-04-21",
+    "title": "Departure",
+    "theme": "travel",
+    "tone": "warm",
+    "summary": "Charles de Gaulle, one last time. Nathan and Talmage depart at 10:25 AM. The trip of a lifetime ends where it began.",
+    "lodging": null,
+    "stops": [
+      {
+        "name": "Charles de Gaulle Airport",
+        "lat": 49.0097,
+        "lng": 2.5479,
+        "time": "07:00",
+        "note": "Nathan and Talmage depart at 10:25 AM."
+      }
+    ]
+  }
+]

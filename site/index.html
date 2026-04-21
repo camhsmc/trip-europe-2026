@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Haines Brothers — Europe 2026</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Georgia', 'Times New Roman', serif;
+      background: #1a1a1a;
+      color: #e8e4df;
+      min-height: 100vh;
+    }
+
+    /* ---- Header ---- */
+    .site-header {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      padding: 2.5rem 1.5rem;
+      text-align: center;
+      border-bottom: 2px solid #c9a96e;
+    }
+    .site-header h1 {
+      font-size: 2rem;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      color: #c9a96e;
+      margin-bottom: 0.25rem;
+    }
+    .site-header .subtitle {
+      font-size: 0.95rem;
+      color: #8a9bb5;
+      font-style: italic;
+    }
+
+    /* ---- Layout ---- */
+    .main-layout {
+      display: grid;
+      grid-template-columns: 420px 1fr;
+      height: calc(100vh - 110px);
+    }
+    @media (max-width: 800px) {
+      .main-layout {
+        grid-template-columns: 1fr;
+        height: auto;
+      }
+      #map { height: 50vh !important; }
+    }
+
+    /* ---- Sidebar ---- */
+    .sidebar {
+      overflow-y: auto;
+      padding: 0;
+      background: #1e1e2a;
+      border-right: 1px solid #333;
+    }
+
+    /* Day filter pills */
+    .day-nav {
+      display: flex;
+      gap: 0.25rem;
+      padding: 0.75rem;
+      overflow-x: auto;
+      background: #161620;
+      border-bottom: 1px solid #333;
+      position: sticky;
+      top: 0;
+      z-index: 5;
+    }
+    .day-pill {
+      padding: 0.35rem 0.75rem;
+      border: 1.5px solid #444;
+      background: transparent;
+      color: #999;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-family: -apple-system, sans-serif;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+    .day-pill:hover { border-color: #c9a96e; color: #c9a96e; }
+    .day-pill.active {
+      background: #c9a96e;
+      color: #1a1a2e;
+      border-color: #c9a96e;
+    }
+
+    /* Day cards */
+    .day-card {
+      padding: 1.25rem;
+      border-bottom: 1px solid #2a2a3a;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .day-card:hover { background: #252535; }
+    .day-card.active { background: #252535; border-left: 3px solid #c9a96e; }
+
+    .day-date {
+      font-family: -apple-system, sans-serif;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #666;
+      margin-bottom: 0.25rem;
+    }
+    .day-card.active .day-date { color: #c9a96e; }
+
+    .day-title {
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: #e8e4df;
+      margin-bottom: 0.4rem;
+    }
+    .day-summary {
+      font-size: 0.85rem;
+      color: #888;
+      line-height: 1.5;
+    }
+    .day-stats {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 0.5rem;
+      font-family: -apple-system, sans-serif;
+      font-size: 0.7rem;
+      color: #666;
+    }
+
+    /* Stop list */
+    .stop-list {
+      margin-top: 0.75rem;
+      padding-left: 1rem;
+      border-left: 2px solid #333;
+    }
+    .stop-item {
+      padding: 0.4rem 0;
+      font-size: 0.8rem;
+      color: #999;
+      cursor: pointer;
+      transition: color 0.15s;
+    }
+    .stop-item:hover { color: #c9a96e; }
+    .stop-name { font-weight: 600; color: #bbb; }
+    .stop-item:hover .stop-name { color: #c9a96e; }
+    .stop-note { font-size: 0.75rem; font-style: italic; color: #666; margin-top: 0.1rem; }
+
+    /* ---- Photo Carousel ---- */
+    .carousel-section {
+      margin-top: 0.75rem;
+    }
+    .carousel-group {
+      margin-bottom: 0.75rem;
+    }
+    .carousel-label {
+      font-family: -apple-system, sans-serif;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: #666;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.35rem;
+    }
+    .carousel-track {
+      display: flex;
+      gap: 0.5rem;
+      overflow-x: auto;
+      padding-bottom: 0.4rem;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
+    .carousel-track::-webkit-scrollbar { height: 4px; }
+    .carousel-track::-webkit-scrollbar-track { background: #2a2a3a; border-radius: 2px; }
+    .carousel-track::-webkit-scrollbar-thumb { background: #555; border-radius: 2px; }
+
+    .carousel-item {
+      flex: 0 0 auto;
+      scroll-snap-align: start;
+      cursor: pointer;
+      position: relative;
+    }
+    .carousel-item img {
+      width: 90px;
+      height: 90px;
+      object-fit: cover;
+      border-radius: 4px;
+      display: block;
+      opacity: 0.85;
+      transition: all 0.15s;
+    }
+    .carousel-item:hover img {
+      opacity: 1;
+      transform: scale(1.03);
+    }
+    /* Time-of-day border — set dynamically via inline style */
+    .carousel-item .time-border {
+      position: absolute;
+      inset: 0;
+      border-radius: 4px;
+      border: 2.5px solid transparent;
+      pointer-events: none;
+    }
+    .carousel-item .time-label {
+      position: absolute;
+      bottom: 2px;
+      right: 3px;
+      font-family: -apple-system, sans-serif;
+      font-size: 0.6rem;
+      font-weight: 600;
+      color: white;
+      background: rgba(0,0,0,0.6);
+      padding: 0 0.25rem;
+      border-radius: 2px;
+      pointer-events: none;
+    }
+
+    /* ---- Time Legend ---- */
+    .time-legend {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-top: 0.5rem;
+      font-family: -apple-system, sans-serif;
+      font-size: 0.65rem;
+      color: #666;
+    }
+    .time-legend-bar {
+      height: 6px;
+      width: 100px;
+      border-radius: 3px;
+      background: linear-gradient(to right, #4a90d9, #f0c040, #e8833a, #9b59b6);
+    }
+
+    /* ---- Map ---- */
+    #map {
+      height: 100%;
+      width: 100%;
+      background: #1a1a2e;
+    }
+
+    /* ---- Lightbox ---- */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.92);
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .lightbox-img-wrap {
+      position: relative;
+      max-width: 90vw;
+      max-height: 70vh;
+    }
+    .lightbox-img-wrap img {
+      max-width: 90vw;
+      max-height: 70vh;
+      border-radius: 4px;
+      box-shadow: 0 4px 40px rgba(0,0,0,0.5);
+      display: block;
+    }
+    .lightbox-bottom {
+      margin-top: 1rem;
+      text-align: center;
+      max-width: 600px;
+      width: 90vw;
+    }
+    .lightbox-loc {
+      font-weight: 600;
+      color: #c9a96e;
+      font-size: 0.95rem;
+    }
+    .lightbox-time {
+      font-size: 0.8rem;
+      color: #888;
+      margin-top: 0.2rem;
+    }
+    .lightbox-desc {
+      margin-top: 0.5rem;
+    }
+    .lightbox-desc textarea {
+      width: 100%;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid #444;
+      border-radius: 6px;
+      color: #e8e4df;
+      font-family: Georgia, serif;
+      font-size: 0.85rem;
+      padding: 0.5rem;
+      resize: vertical;
+      min-height: 2.5rem;
+      line-height: 1.4;
+    }
+    .lightbox-desc textarea:focus {
+      outline: none;
+      border-color: #c9a96e;
+    }
+    .lightbox-desc textarea::placeholder { color: #555; }
+    .lightbox-save-hint {
+      font-family: -apple-system, sans-serif;
+      font-size: 0.65rem;
+      color: #555;
+      margin-top: 0.2rem;
+    }
+
+    .lightbox-close {
+      position: fixed;
+      top: 1rem;
+      right: 1.5rem;
+      font-size: 2rem;
+      color: #888;
+      cursor: pointer;
+      z-index: 1001;
+      font-family: -apple-system, sans-serif;
+    }
+    .lightbox-close:hover { color: white; }
+    .lightbox-nav {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 2.5rem;
+      color: #666;
+      cursor: pointer;
+      z-index: 1001;
+      padding: 1rem;
+      font-family: -apple-system, sans-serif;
+      user-select: none;
+    }
+    .lightbox-nav:hover { color: white; }
+    .lightbox-prev { left: 0.5rem; }
+    .lightbox-next { right: 0.5rem; }
+
+    .hidden { display: none !important; }
+
+    /* Leaflet popup overrides */
+    .leaflet-popup-content-wrapper {
+      background: #1e1e2a;
+      color: #e8e4df;
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    }
+    .leaflet-popup-tip { background: #1e1e2a; }
+    .leaflet-popup-content { margin: 0.5rem; min-width: 210px; }
+    .popup-img {
+      width: 210px;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 4px;
+      cursor: pointer;
+      display: block;
+    }
+    .popup-text { font-size: 0.8rem; margin-top: 0.4rem; color: #999; }
+    .popup-loc { font-weight: 600; color: #c9a96e; font-size: 0.85rem; }
+    .popup-caption-edit {
+      width: 100%;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid #444;
+      border-radius: 4px;
+      color: #e8e4df;
+      font-family: Georgia, serif;
+      font-size: 0.8rem;
+      font-style: italic;
+      padding: 0.35rem;
+      margin-top: 0.35rem;
+      resize: vertical;
+      min-height: 2.4em;
+      line-height: 1.4;
+    }
+    .popup-caption-edit:focus { outline: none; border-color: #c9a96e; }
+    .popup-caption-edit::placeholder { color: #555; font-style: italic; }
+    .popup-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 0.35rem;
+    }
+    .popup-nav-btn {
+      background: none;
+      border: 1px solid #444;
+      color: #ccc;
+      border-radius: 4px;
+      padding: 0.15rem 0.5rem;
+      font-size: 0.85rem;
+      cursor: pointer;
+      font-family: -apple-system, sans-serif;
+    }
+    .popup-nav-btn:hover { border-color: #c9a96e; color: #c9a96e; }
+    .popup-counter {
+      font-family: -apple-system, sans-serif;
+      font-size: 0.7rem;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+
+<div class="site-header">
+  <h1>HAINES BROTHERS</h1>
+  <div class="subtitle">Normandy &middot; Hürtgen Forest &middot; Paris &mdash; April 2026</div>
+</div>
+
+<div class="main-layout">
+  <div class="sidebar" id="sidebar">
+    <div class="day-nav" id="day-nav"></div>
+    <div id="day-list"></div>
+  </div>
+  <div id="map"></div>
+</div>
+
+<!-- Lightbox -->
+<div class="lightbox hidden" id="lightbox">
+  <div class="lightbox-close" onclick="closeLightbox()">&times;</div>
+  <div class="lightbox-nav lightbox-prev" onclick="navLightbox(-1)">&lsaquo;</div>
+  <div class="lightbox-nav lightbox-next" onclick="navLightbox(1)">&rsaquo;</div>
+  <div class="lightbox-img-wrap">
+    <img id="lightbox-img" src="" alt="">
+  </div>
+  <div class="lightbox-bottom">
+    <div class="lightbox-loc" id="lightbox-loc"></div>
+    <div class="lightbox-time" id="lightbox-time"></div>
+    <div class="lightbox-desc">
+      <textarea id="lightbox-caption" placeholder="Add a description for this photo..." rows="2"></textarea>
+      <div class="lightbox-save-hint">Auto-saves when you navigate or close</div>
+    </div>
+  </div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+// ============================================================
+// State
+// ============================================================
+var itinerary = [];
+var photos = [];
+var map;
+var photoMarkers = [];
+var stopMarkers = [];
+var routeLines = [];
+var activeDay = null;
+var lightboxPhotos = [];
+var lightboxIdx = 0;
+
+var PHOTO_BASE = 'https://optzbdbavpnxstpxrpbh.supabase.co/storage/v1/object/public/trip-photos/full/';
+var THUMB_BASE = 'https://optzbdbavpnxstpxrpbh.supabase.co/storage/v1/object/public/trip-photos/thumbs/';
+
+// ============================================================
+// Time-of-day color gradient
+// Maps hour (0-23 UTC) to a border color
+// Dawn blue → morning gold → afternoon orange → evening purple
+// ============================================================
+function timeColor(timestamp) {
+  if (!timestamp) return '#555';
+  var d = new Date(timestamp);
+  var h = d.getUTCHours() + d.getUTCMinutes() / 60;
+
+  // Clamp to 6am-21pm range for color spread
+  var t = Math.max(0, Math.min(1, (h - 6) / 15));
+
+  // 4-stop gradient: blue → gold → orange → purple
+  var stops = [
+    { p: 0.0, r: 74, g: 144, b: 217 },  // dawn blue
+    { p: 0.35, r: 240, g: 192, b: 64 },  // morning gold
+    { p: 0.65, r: 232, g: 131, b: 58 },  // afternoon orange
+    { p: 1.0, r: 155, g: 89, b: 182 }    // evening purple
+  ];
+
+  var a = stops[0], b = stops[1];
+  for (var i = 1; i < stops.length; i++) {
+    if (t <= stops[i].p) { a = stops[i-1]; b = stops[i]; break; }
+    if (i === stops.length - 1) { a = stops[i-1]; b = stops[i]; }
+  }
+
+  var mix = (t - a.p) / (b.p - a.p);
+  mix = Math.max(0, Math.min(1, mix));
+  var r = Math.round(a.r + (b.r - a.r) * mix);
+  var g = Math.round(a.g + (b.g - a.g) * mix);
+  var bl = Math.round(a.b + (b.b - a.b) * mix);
+  return 'rgb(' + r + ',' + g + ',' + bl + ')';
+}
+
+function shortTime(timestamp) {
+  if (!timestamp) return '';
+  var d = new Date(timestamp);
+  var h = d.getUTCHours();
+  var m = d.getUTCMinutes();
+  var ampm = h >= 12 ? 'p' : 'a';
+  if (h > 12) h -= 12;
+  if (h === 0) h = 12;
+  return h + ':' + (m < 10 ? '0' : '') + m + ampm;
+}
+
+// ============================================================
+// Cluster nearby photos by GPS proximity
+// ============================================================
+function clusterPhotos(dayPhotos) {
+  if (dayPhotos.length === 0) return [];
+
+  var groups = [];
+  var used = new Array(dayPhotos.length).fill(false);
+  var THRESHOLD = 0.005; // ~500m
+
+  for (var i = 0; i < dayPhotos.length; i++) {
+    if (used[i]) continue;
+    var group = { photos: [dayPhotos[i]], lat: dayPhotos[i].lat, lng: dayPhotos[i].lng };
+    used[i] = true;
+
+    for (var j = i + 1; j < dayPhotos.length; j++) {
+      if (used[j]) continue;
+      if (dayPhotos[j].lat === null || group.lat === null) continue;
+      var dlat = Math.abs(dayPhotos[j].lat - group.lat);
+      var dlng = Math.abs(dayPhotos[j].lng - group.lng);
+      if (dlat < THRESHOLD && dlng < THRESHOLD) {
+        group.photos.push(dayPhotos[j]);
+        used[j] = true;
+      }
+    }
+
+    // Name the cluster by location or nearest stop
+    var label = group.photos[0].location || '';
+    if (!label && group.lat) {
+      label = nearestStopName(group.lat, group.lng);
+    }
+    if (!label) label = shortTime(group.photos[0].timestamp);
+    group.label = label;
+    groups.push(group);
+  }
+
+  return groups;
+}
+
+function nearestStopName(lat, lng) {
+  var best = '';
+  var bestDist = Infinity;
+  itinerary.forEach(function(d) {
+    (d.stops || []).forEach(function(s) {
+      if (!s.lat) return;
+      var dist = Math.abs(s.lat - lat) + Math.abs(s.lng - lng);
+      if (dist < bestDist && dist < 0.05) {
+        bestDist = dist;
+        best = s.name;
+      }
+    });
+  });
+  return best;
+}
+
+// ============================================================
+// Init
+// ============================================================
+document.addEventListener('DOMContentLoaded', function() {
+  Promise.all([
+    fetch('data/itinerary.json').then(function(r) { return r.json(); }),
+    fetch('data/photos.json').then(function(r) { return r.json(); })
+  ]).then(function(results) {
+    itinerary = results[0];
+    photos = results[1];
+
+    // Load saved captions from localStorage
+    var saved = localStorage.getItem('photo-captions');
+    if (saved) {
+      var captions = JSON.parse(saved);
+      photos.forEach(function(p) {
+        if (captions[p.id]) p.caption = captions[p.id];
+      });
+    }
+
+    initMap();
+    renderDayNav();
+    renderDayList();
+    showDay('all');
+  });
+});
+
+// ============================================================
+// Map
+// ============================================================
+function initMap() {
+  map = L.map('map', { zoomControl: true, attributionControl: false })
+    .setView([49.5, 2.5], 6);
+
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    maxZoom: 19
+  }).addTo(map);
+}
+
+// Store cluster data globally so popup navigation can access it
+var mapClusters = [];
+
+function plotDay(dayNum) {
+  clearMapLayers();
+  mapClusters = [];
+
+  var dayPhotos = dayNum === 'all'
+    ? photos.filter(function(p) { return p.lat !== null; })
+    : photos.filter(function(p) { return p.day === dayNum && p.lat !== null; });
+
+  // Sort by timestamp for route line
+  var sorted = dayPhotos.slice().sort(function(a, b) {
+    return (a.timestamp || '').localeCompare(b.timestamp || '');
+  });
+
+  var bounds = [];
+
+  // Cluster photos by proximity for map markers
+  var clusters = clusterPhotos(dayPhotos);
+  mapClusters = clusters;
+
+  clusters.forEach(function(cluster, ci) {
+    // Use first photo's position for marker
+    var firstPhoto = cluster.photos[0];
+    var color = timeColor(firstPhoto.timestamp);
+    var thumbSrc = firstPhoto.thumb_url || (THUMB_BASE + firstPhoto.jpg);
+
+    // Show count badge if more than 1 photo
+    var countBadge = cluster.photos.length > 1
+      ? '<div style="position:absolute; top:-4px; right:-4px; background:#c9a96e; color:#1a1a2e; ' +
+        'border-radius:50%; width:16px; height:16px; font-size:0.6rem; font-weight:700; ' +
+        'display:flex; align-items:center; justify-content:center; font-family:-apple-system,sans-serif; ' +
+        'border:1px solid #1e1e2a;">' + cluster.photos.length + '</div>'
+      : '';
+
+    var icon = L.divIcon({
+      className: '',
+      html: '<div style="position:relative; width:36px; height:36px;">' +
+        '<div style="width:36px; height:36px; border-radius:50%; border:2.5px solid ' + color + '; overflow:hidden; box-shadow:0 2px 8px rgba(0,0,0,0.4);">' +
+        '<img src="' + thumbSrc + '" style="width:100%; height:100%; object-fit:cover;" /></div>' +
+        countBadge + '</div>',
+      iconSize: [36, 36],
+      iconAnchor: [18, 18]
+    });
+
+    var marker = L.marker([firstPhoto.lat, firstPhoto.lng], { icon: icon }).addTo(map);
+
+    // Build navigable popup
+    marker.on('click', function() {
+      showClusterPopup(marker, ci, 0);
+    });
+
+    photoMarkers.push(marker);
+    bounds.push([firstPhoto.lat, firstPhoto.lng]);
+  });
+
+  // Route line from photo timestamps (not itinerary)
+  if (sorted.length > 1) {
+    var routeCoords = sorted.map(function(p) { return [p.lat, p.lng]; });
+    var line = L.polyline(routeCoords, {
+      color: '#c9a96e',
+      weight: 2,
+      opacity: 0.5,
+      dashArray: '6,8'
+    }).addTo(map);
+    routeLines.push(line);
+  }
+
+  if (bounds.length > 0) {
+    map.fitBounds(bounds, { padding: [40, 40], maxZoom: 14 });
+  }
+}
+
+function showClusterPopup(marker, clusterIdx, photoIdx) {
+  // Save previous photo's caption before switching
+  var cluster = mapClusters[clusterIdx];
+  if (cluster) {
+    cluster.photos.forEach(function(ph) { savePopupCaption(ph.id); });
+  }
+
+  if (!cluster) return;
+  var p = cluster.photos[photoIdx];
+  if (!p) return;
+
+  var thumbSrc = p.thumb_url || (THUMB_BASE + p.jpg);
+  var total = cluster.photos.length;
+  var locName = p.location || nearestStopName(p.lat, p.lng) || '';
+
+  var html = '<img class="popup-img" src="' + thumbSrc + '" ' +
+    'onclick="openLightboxFromMap(\'' + p.id + '\')" />';
+
+  html += '<div class="popup-text">';
+  if (locName) html += '<div class="popup-loc">' + locName + '</div>';
+  html += '<div>' + formatTimestamp(p.timestamp) + '</div>';
+  html += '<textarea class="popup-caption-edit" id="popup-cap-' + p.id + '" ' +
+    'placeholder="Add a description..." rows="2" ' +
+    'onblur="savePopupCaption(\'' + p.id + '\')">' +
+    escapeHtml(p.caption || '') + '</textarea>';
+  html += '</div>';
+
+  // Navigation arrows if multiple photos in cluster
+  if (total > 1) {
+    var prevIdx = (photoIdx - 1 + total) % total;
+    var nextIdx = (photoIdx + 1) % total;
+    html += '<div class="popup-nav">';
+    html += '<button class="popup-nav-btn" onclick="showClusterPopup(photoMarkers[' + clusterIdx + '],' + clusterIdx + ',' + prevIdx + ')">&lsaquo; Prev</button>';
+    html += '<span class="popup-counter">' + (photoIdx + 1) + ' / ' + total + '</span>';
+    html += '<button class="popup-nav-btn" onclick="showClusterPopup(photoMarkers[' + clusterIdx + '],' + clusterIdx + ',' + nextIdx + ')">Next &rsaquo;</button>';
+    html += '</div>';
+  }
+
+  marker.unbindPopup();
+  marker.bindPopup(html, { maxWidth: 260, className: '' }).openPopup();
+}
+
+function savePopupCaption(photoId) {
+  var textarea = document.getElementById('popup-cap-' + photoId);
+  if (!textarea) return;
+  var newCaption = textarea.value.trim();
+  var photo = photos.find(function(p) { return p.id === photoId; });
+  if (photo && newCaption !== (photo.caption || '')) {
+    photo.caption = newCaption;
+    persistCaptions();
+  }
+}
+
+function clearMapLayers() {
+  photoMarkers.forEach(function(m) { map.removeLayer(m); });
+  stopMarkers.forEach(function(m) { map.removeLayer(m); });
+  routeLines.forEach(function(l) { map.removeLayer(l); });
+  photoMarkers = [];
+  stopMarkers = [];
+  routeLines = [];
+}
+
+// ============================================================
+// Day Nav
+// ============================================================
+function renderDayNav() {
+  var nav = document.getElementById('day-nav');
+  var html = '<button class="day-pill active" onclick="showDay(\'all\')">All</button>';
+  itinerary.forEach(function(d) {
+    if (d.day === 0 || d.day === 7) return;
+    html += '<button class="day-pill" onclick="showDay(' + d.day + ')">Day ' + d.day + '</button>';
+  });
+  nav.innerHTML = html;
+}
+
+// ============================================================
+// Day List
+// ============================================================
+function renderDayList() {
+  var list = document.getElementById('day-list');
+  var html = '';
+
+  itinerary.forEach(function(d) {
+    var dayPhotos = photos.filter(function(p) { return p.day === d.day; });
+    var photoCount = dayPhotos.length;
+    var stopCount = (d.stops || []).length;
+
+    html += '<div class="day-card" id="day-card-' + d.day + '" onclick="showDay(' + d.day + ')">';
+    html += '<div class="day-date">' + formatDate(d.date) + '</div>';
+    html += '<div class="day-title">' + d.title + '</div>';
+    html += '<div class="day-summary">' + d.summary + '</div>';
+    html += '<div class="day-stats">';
+    if (photoCount > 0) html += '<span>&#128247; ' + photoCount + ' photos</span>';
+    if (stopCount > 0) html += '<span>&#128205; ' + stopCount + ' stops</span>';
+    html += '</div>';
+
+    // Stops
+    if (d.stops && d.stops.length > 0) {
+      html += '<div class="stop-list hidden" id="stops-' + d.day + '">';
+      d.stops.forEach(function(s) {
+        html += '<div class="stop-item" onclick="flyToStop(' + s.lat + ',' + s.lng + ', event)">';
+        html += '<div class="stop-name">' + s.name + '</div>';
+        if (s.note) html += '<div class="stop-note">' + s.note + '</div>';
+        html += '</div>';
+      });
+      html += '</div>';
+    }
+
+    // Photo carousels grouped by location
+    if (dayPhotos.length > 0) {
+      html += '<div class="carousel-section hidden" id="photos-' + d.day + '">';
+
+      var groups = clusterPhotos(dayPhotos);
+      groups.forEach(function(g) {
+        html += '<div class="carousel-group">';
+        if (g.label) html += '<div class="carousel-label">' + escapeHtml(g.label) + '</div>';
+        html += '<div class="carousel-track">';
+        g.photos.forEach(function(p, pi) {
+          var thumbSrc = p.thumb_url || (THUMB_BASE + p.jpg);
+          var color = timeColor(p.timestamp);
+          html += '<div class="carousel-item" onclick="openLightbox(' + d.day + ',\'' + p.id + '\', event)">';
+          html += '<img src="' + thumbSrc + '" loading="lazy" />';
+          html += '<div class="time-border" style="border-color:' + color + ';"></div>';
+          html += '<div class="time-label">' + shortTime(p.timestamp) + '</div>';
+          html += '</div>';
+        });
+        html += '</div></div>';
+      });
+
+      // Time legend
+      html += '<div class="time-legend"><span>AM</span><div class="time-legend-bar"></div><span>PM</span></div>';
+      html += '</div>';
+    }
+
+    html += '</div>';
+  });
+
+  list.innerHTML = html;
+}
+
+// ============================================================
+// Show Day
+// ============================================================
+function showDay(dayNum) {
+  activeDay = dayNum;
+
+  document.querySelectorAll('.day-pill').forEach(function(btn, i) {
+    if (dayNum === 'all') {
+      btn.classList.toggle('active', i === 0);
+    } else {
+      btn.classList.toggle('active', btn.textContent === 'Day ' + dayNum);
+    }
+  });
+
+  document.querySelectorAll('.day-card').forEach(function(card) { card.classList.remove('active'); });
+  document.querySelectorAll('.stop-list, .carousel-section').forEach(function(el) { el.classList.add('hidden'); });
+
+  if (dayNum !== 'all') {
+    var card = document.getElementById('day-card-' + dayNum);
+    if (card) {
+      card.classList.add('active');
+      card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+    var stops = document.getElementById('stops-' + dayNum);
+    if (stops) stops.classList.remove('hidden');
+    var strip = document.getElementById('photos-' + dayNum);
+    if (strip) strip.classList.remove('hidden');
+  }
+
+  plotDay(dayNum);
+}
+
+function flyToStop(lat, lng, event) {
+  if (event) event.stopPropagation();
+  map.flyTo([lat, lng], 15, { duration: 1 });
+}
+
+// ============================================================
+// Lightbox with caption editing
+// ============================================================
+function openLightbox(dayNum, photoId, event) {
+  if (event) event.stopPropagation();
+  lightboxPhotos = photos.filter(function(p) { return p.day === dayNum; });
+  lightboxIdx = lightboxPhotos.findIndex(function(p) { return p.id === photoId; });
+  if (lightboxIdx < 0) lightboxIdx = 0;
+  showLightboxPhoto();
+  document.getElementById('lightbox').classList.remove('hidden');
+}
+
+function openLightboxFromMap(photoId) {
+  var photo = photos.find(function(p) { return p.id === photoId; });
+  if (!photo) return;
+  lightboxPhotos = activeDay === 'all'
+    ? photos.filter(function(p) { return p.lat !== null; })
+    : photos.filter(function(p) { return p.day === activeDay; });
+  lightboxIdx = lightboxPhotos.indexOf(photo);
+  if (lightboxIdx < 0) lightboxIdx = 0;
+  showLightboxPhoto();
+  document.getElementById('lightbox').classList.remove('hidden');
+}
+
+function showLightboxPhoto() {
+  saveLightboxCaption(); // save previous photo's caption
+
+  var p = lightboxPhotos[lightboxIdx];
+  if (!p) return;
+  var fullSrc = p.url || (PHOTO_BASE + p.jpg);
+  document.getElementById('lightbox-img').src = fullSrc;
+  document.getElementById('lightbox-loc').textContent = p.location || nearestStopName(p.lat, p.lng) || '';
+  document.getElementById('lightbox-time').textContent = formatTimestamp(p.timestamp);
+  document.getElementById('lightbox-caption').value = p.caption || '';
+}
+
+function saveLightboxCaption() {
+  if (!lightboxPhotos.length) return;
+  var p = lightboxPhotos[lightboxIdx];
+  if (!p) return;
+  var textarea = document.getElementById('lightbox-caption');
+  var newCaption = textarea.value.trim();
+  if (newCaption !== (p.caption || '')) {
+    p.caption = newCaption;
+    persistCaptions();
+  }
+}
+
+function persistCaptions() {
+  var captions = {};
+  photos.forEach(function(p) {
+    if (p.caption) captions[p.id] = p.caption;
+  });
+  localStorage.setItem('photo-captions', JSON.stringify(captions));
+}
+
+function navLightbox(dir, event) {
+  if (event) { event.stopPropagation(); event.preventDefault(); }
+  saveLightboxCaption();
+  lightboxIdx = (lightboxIdx + dir + lightboxPhotos.length) % lightboxPhotos.length;
+  showLightboxPhoto();
+}
+
+function closeLightbox() {
+  saveLightboxCaption();
+  document.getElementById('lightbox').classList.add('hidden');
+  // Re-render to show updated captions
+  renderDayList();
+  if (activeDay !== 'all') showDay(activeDay);
+}
+
+document.addEventListener('keydown', function(e) {
+  var lb = document.getElementById('lightbox');
+  if (lb.classList.contains('hidden')) return;
+  if (e.key === 'Escape') closeLightbox();
+  if (e.key === 'ArrowLeft') navLightbox(-1);
+  if (e.key === 'ArrowRight') navLightbox(1);
+});
+
+// Close lightbox when clicking backdrop (but not the image or caption area)
+document.getElementById('lightbox').addEventListener('click', function(e) {
+  if (e.target === this) closeLightbox();
+});
+
+// ============================================================
+// Helpers
+// ============================================================
+function formatDate(dateStr) {
+  if (!dateStr) return '';
+  var d = new Date(dateStr + 'T12:00:00');
+  var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  var months = ['January','February','March','April','May','June',
+    'July','August','September','October','November','December'];
+  return days[d.getDay()] + ', ' + months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear();
+}
+
+function formatTimestamp(ts) {
+  if (!ts) return '';
+  var d = new Date(ts);
+  var h = d.getUTCHours();
+  var m = d.getUTCMinutes();
+  var ampm = h >= 12 ? 'PM' : 'AM';
+  if (h > 12) h -= 12;
+  if (h === 0) h = 12;
+  return h + ':' + (m < 10 ? '0' : '') + m + ' ' + ampm;
+}
+
+function escapeHtml(str) {
+  if (!str) return '';
+  return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+</script>
+</body>
+</html>

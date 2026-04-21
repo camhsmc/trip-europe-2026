@@ -1,0 +1,8 @@
+# Original photos (too large for GitHub)
+originals/
+
+# Full-size converted photos (will be served from Supabase Storage)
+site/photos/full/
+
+# Keep thumbs — they're small enough for GitHub Pages
+# site/photos/thumbs/
