@@ -367,8 +367,9 @@
       font-style: italic;
       padding: 0.35rem;
       margin-top: 0.35rem;
-      resize: vertical;
-      min-height: 2.4em;
+      resize: none;
+      overflow: hidden;
+      min-height: 1.6em;
       line-height: 1.4;
     }
     .popup-caption-edit:focus { outline: none; border-color: #c9a96e; }
@@ -684,7 +685,8 @@ function showClusterPopup(marker, clusterIdx, photoIdx) {
   if (locName) html += '<div class="popup-loc">' + locName + '</div>';
   html += '<div>' + formatTimestamp(p.timestamp) + '</div>';
   html += '<textarea class="popup-caption-edit" id="popup-cap-' + p.id + '" ' +
-    'placeholder="Add a description..." rows="2" ' +
+    'placeholder="Add a description..." rows="1" ' +
+    'oninput="autoResizeTextarea(this)" ' +
     'onblur="savePopupCaption(\'' + p.id + '\')">' +
     escapeHtml(p.caption || '') + '</textarea>';
   html += '</div>';
@@ -701,7 +703,18 @@ function showClusterPopup(marker, clusterIdx, photoIdx) {
   }
 
   marker.unbindPopup();
-  marker.bindPopup(html, { maxWidth: 260, className: '' }).openPopup();
+  marker.bindPopup(html, { maxWidth: 300, className: '' }).openPopup();
+
+  // Auto-resize textarea after popup renders
+  setTimeout(function() {
+    var ta = document.getElementById('popup-cap-' + p.id);
+    if (ta) autoResizeTextarea(ta);
+  }, 50);
+}
+
+function autoResizeTextarea(el) {
+  el.style.height = 'auto';
+  el.style.height = el.scrollHeight + 'px';
 }
 
 function savePopupCaption(photoId) {
