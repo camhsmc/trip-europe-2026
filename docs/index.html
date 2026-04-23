@@ -60,9 +60,9 @@
     /* Day filter pills */
     .day-nav {
       display: flex;
-      gap: 0.25rem;
+      flex-wrap: wrap;
+      gap: 0.35rem;
       padding: 0.75rem;
-      overflow-x: auto;
       background: #161620;
       border-bottom: 1px solid #333;
       position: sticky;
@@ -449,6 +449,10 @@ var lightboxIdx = 0;
 var PHOTO_BASE = 'https://optzbdbavpnxstpxrpbh.supabase.co/storage/v1/object/public/trip-photos/full/';
 var THUMB_BASE = 'https://optzbdbavpnxstpxrpbh.supabase.co/storage/v1/object/public/trip-photos/thumbs/';
 
+// Trip timezone — Central European Summer Time (UTC+2) for France/Germany in April.
+// Photo timestamps are stored in UTC; we shift for display so labels match what Cam saw on his phone.
+var TRIP_OFFSET_HOURS = 2;
+
 // ============================================================
 // Time-of-day color gradient
 // Maps hour (0-23 UTC) to a border color
@@ -457,7 +461,7 @@ var THUMB_BASE = 'https://optzbdbavpnxstpxrpbh.supabase.co/storage/v1/object/pub
 function timeColor(timestamp) {
   if (!timestamp) return '#555';
   var d = new Date(timestamp);
-  var h = d.getUTCHours() + d.getUTCMinutes() / 60;
+  var h = ((d.getUTCHours() + TRIP_OFFSET_HOURS) % 24) + d.getUTCMinutes() / 60;
 
   // Clamp to 6am-21pm range for color spread
   var t = Math.max(0, Math.min(1, (h - 6) / 15));
@@ -487,7 +491,7 @@ function timeColor(timestamp) {
 function shortTime(timestamp) {
   if (!timestamp) return '';
   var d = new Date(timestamp);
-  var h = d.getUTCHours();
+  var h = (d.getUTCHours() + TRIP_OFFSET_HOURS) % 24;
   var m = d.getUTCMinutes();
   var ampm = h >= 12 ? 'p' : 'a';
   if (h > 12) h -= 12;
@@ -744,7 +748,8 @@ function renderDayNav() {
   var nav = document.getElementById('day-nav');
   var html = '<button class="day-pill active" onclick="showDay(\'all\')">All</button>';
   itinerary.forEach(function(d) {
-    if (d.day === 0 || d.day === 7) return;
+    var n = photos.filter(function(p) { return p.day === d.day; }).length;
+    if (n === 0) return;
     html += '<button class="day-pill" onclick="showDay(' + d.day + ')">Day ' + d.day + '</button>';
   });
   nav.innerHTML = html;
@@ -759,6 +764,7 @@ function renderDayList() {
 
   itinerary.forEach(function(d) {
     var dayPhotos = photos.filter(function(p) { return p.day === d.day; });
+    if (dayPhotos.length === 0) return;
     var photoCount = dayPhotos.length;
     var stopCount = (d.stops || []).length;
 
@@ -951,7 +957,7 @@ function formatDate(dateStr) {
 function formatTimestamp(ts) {
   if (!ts) return '';
   var d = new Date(ts);
-  var h = d.getUTCHours();
+  var h = (d.getUTCHours() + TRIP_OFFSET_HOURS) % 24;
   var m = d.getUTCMinutes();
   var ampm = h >= 12 ? 'PM' : 'AM';
   if (h > 12) h -= 12;
