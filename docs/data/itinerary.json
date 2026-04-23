@@ -28,7 +28,7 @@
       {
         "name": "Bayeux",
         "lat": 49.2764,
-        "lng": -0.7030,
+        "lng": -0.703,
         "time": "16:00",
         "note": "Arrive at the hotel. Groceries, dinner, early to bed."
       }
@@ -78,7 +78,7 @@
       {
         "name": "Bayeux (departure)",
         "lat": 49.2764,
-        "lng": -0.7030,
+        "lng": -0.703,
         "time": "10:00",
         "note": "Final Normandy stops, then eastbound."
       },
@@ -130,8 +130,8 @@
       },
       {
         "name": "Vossenack / Schmidt",
-        "lat": 50.5330,
-        "lng": 6.2820,
+        "lat": 50.533,
+        "lng": 6.282,
         "time": "13:00",
         "note": "Key Hürtgen Forest battle sites."
       },
@@ -145,7 +145,7 @@
       {
         "name": "Aachen Cathedral",
         "lat": 50.7742,
-        "lng": 6.0840,
+        "lng": 6.084,
         "time": "18:00",
         "note": "Evening in Aachen before heading back."
       }
@@ -195,7 +195,7 @@
       {
         "name": "Arc de Triomphe",
         "lat": 48.8738,
-        "lng": 2.2950,
+        "lng": 2.295,
         "time": null,
         "note": null
       },
@@ -215,7 +215,7 @@
       },
       {
         "name": "Notre-Dame area",
-        "lat": 48.8530,
+        "lat": 48.853,
         "lng": 2.3477,
         "time": null,
         "note": null
@@ -225,18 +225,71 @@
   {
     "day": 7,
     "date": "2026-04-21",
+    "title": "Paris with Kara",
+    "theme": "paris",
+    "tone": "warm",
+    "summary": "A full day in Paris with Kara — morning Mass at Notre-Dame, the Arc de Triomphe at noon, the Catacombs in the afternoon, dinner at JJ Beaumarchais, and the Eiffel Tower shimmering over Trocadéro at night.",
+    "lodging": "Airbnb, 23 Rue de Nantes, Mitry-Mory, Île-de-France 77290",
+    "stops": [
+      {
+        "name": "Boulevard Beaumarchais / Marais",
+        "lat": 48.8625,
+        "lng": 2.3736,
+        "time": "08:00",
+        "note": "Morning coffee and walk through the Marais."
+      },
+      {
+        "name": "Notre-Dame Cathedral",
+        "lat": 48.853,
+        "lng": 2.3499,
+        "time": "10:00",
+        "note": "Morning Mass at Notre-Dame."
+      },
+      {
+        "name": "Arc de Triomphe",
+        "lat": 48.8738,
+        "lng": 2.295,
+        "time": "12:00",
+        "note": "Tomb of the Unknown Soldier and the view down the Champs-Élysées."
+      },
+      {
+        "name": "Catacombs",
+        "lat": 48.8339,
+        "lng": 2.3325,
+        "time": "13:30",
+        "note": "Descending into the ossuaries beneath Paris."
+      },
+      {
+        "name": "JJ Beaumarchais",
+        "lat": 48.8625,
+        "lng": 2.3706,
+        "time": "19:00",
+        "note": "Dinner at 92 Blvd Beaumarchais."
+      },
+      {
+        "name": "Trocadéro / Eiffel Tower",
+        "lat": 48.863,
+        "lng": 2.2875,
+        "time": "20:00",
+        "note": "Eiffel Tower at night from Trocadéro."
+      }
+    ]
+  },
+  {
+    "day": 8,
+    "date": "2026-04-22",
     "title": "Departure",
     "theme": "travel",
     "tone": "warm",
-    "summary": "Charles de Gaulle, one last time. Nathan and Talmage depart at 10:25 AM. The trip of a lifetime ends where it began.",
+    "summary": "Cam and Kara leave Paris for home — 7:30 AM out the door, Aer Lingus via Dublin, and back to Minneapolis.",
     "lodging": null,
     "stops": [
       {
         "name": "Charles de Gaulle Airport",
         "lat": 49.0097,
         "lng": 2.5479,
-        "time": "07:00",
-        "note": "Nathan and Talmage depart at 10:25 AM."
+        "time": "07:30",
+        "note": "EI 521 CDG → Dublin at 10:20 AM, then EI 89 Dublin → MSP."
       }
     ]
   }

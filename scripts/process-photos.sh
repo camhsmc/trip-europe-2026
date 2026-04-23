@@ -8,10 +8,10 @@
 # ============================================================
 
 ORIGINALS_DIR="../originals"
-OUTPUT_DIR="../site/photos"
+OUTPUT_DIR="../docs/photos"
 FULL_DIR="$OUTPUT_DIR/full"
 THUMB_DIR="$OUTPUT_DIR/thumbs"
-JSON_FILE="../site/data/photos.json"
+JSON_FILE="../docs/data/photos.json"
 
 # Supabase config
 SUPABASE_PROJECT="optzbdbavpnxstpxrpbh"
@@ -28,9 +28,10 @@ echo "=== Step 1: Converting to JPEG ==="
 mkdir -p "$FULL_DIR" "$THUMB_DIR"
 
 count=0
-total=$(ls "$ORIGINALS_DIR"/*.HEIC "$ORIGINALS_DIR"/*.JPEG "$ORIGINALS_DIR"/*.PNG 2>/dev/null | wc -l | tr -d ' ')
+shopt -s nullglob nocaseglob
+total=$(ls "$ORIGINALS_DIR"/*.{HEIC,JPEG,JPG,PNG} 2>/dev/null | wc -l | tr -d ' ')
 
-for f in "$ORIGINALS_DIR"/*.HEIC "$ORIGINALS_DIR"/*.JPEG "$ORIGINALS_DIR"/*.PNG; do
+for f in "$ORIGINALS_DIR"/*.{HEIC,JPEG,JPG,PNG}; do
   [ -f "$f" ] || continue
   fname=$(basename "$f")
   base="${fname%.*}"
@@ -74,24 +75,26 @@ echo "=== Step 2: Uploading to Supabase Storage ==="
 for f in "$FULL_DIR"/*.jpg; do
   fname=$(basename "$f")
   echo "Uploading full/$fname..."
-  curl -s -X POST \
+  code=$(curl -s -o /tmp/upload_resp -w "%{http_code}" -X POST \
     "${SUPABASE_URL}/storage/v1/object/${BUCKET}/full/${fname}" \
-    -H "Authorization: Bearer ${SUPABASE_KEY}" \
+    -H "apikey: ${SUPABASE_KEY}" \
     -H "Content-Type: image/jpeg" \
     -H "x-upsert: true" \
-    --data-binary @"$f" > /dev/null
+    --data-binary @"$f")
+  if [ "$code" != "200" ]; then echo "  FAILED HTTP $code: $(cat /tmp/upload_resp)"; fi
 done
 
 # Upload thumbnails
 for f in "$THUMB_DIR"/*.jpg; do
   fname=$(basename "$f")
   echo "Uploading thumbs/$fname..."
-  curl -s -X POST \
+  code=$(curl -s -o /tmp/upload_resp -w "%{http_code}" -X POST \
     "${SUPABASE_URL}/storage/v1/object/${BUCKET}/thumbs/${fname}" \
-    -H "Authorization: Bearer ${SUPABASE_KEY}" \
+    -H "apikey: ${SUPABASE_KEY}" \
     -H "Content-Type: image/jpeg" \
     -H "x-upsert: true" \
-    --data-binary @"$f" > /dev/null
+    --data-binary @"$f")
+  if [ "$code" != "200" ]; then echo "  FAILED HTTP $code: $(cat /tmp/upload_resp)"; fi
 done
 
 echo ""
