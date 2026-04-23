@@ -511,17 +511,31 @@ function clusterPhotos(dayPhotos) {
 
   for (var i = 0; i < dayPhotos.length; i++) {
     if (used[i]) continue;
-    var group = { photos: [dayPhotos[i]], lat: dayPhotos[i].lat, lng: dayPhotos[i].lng };
+    var seed = dayPhotos[i];
+    var group = { photos: [seed], lat: seed.lat, lng: seed.lng };
     used[i] = true;
 
     for (var j = i + 1; j < dayPhotos.length; j++) {
       if (used[j]) continue;
-      if (dayPhotos[j].lat === null || group.lat === null) continue;
-      var dlat = Math.abs(dayPhotos[j].lat - group.lat);
-      var dlng = Math.abs(dayPhotos[j].lng - group.lng);
-      if (dlat < THRESHOLD && dlng < THRESHOLD) {
-        group.photos.push(dayPhotos[j]);
+      var cand = dayPhotos[j];
+
+      var nearby = false;
+      if (cand.lat !== null && group.lat !== null) {
+        var dlat = Math.abs(cand.lat - group.lat);
+        var dlng = Math.abs(cand.lng - group.lng);
+        nearby = (dlat < THRESHOLD && dlng < THRESHOLD);
+      }
+      var sameLoc = cand.location && seed.location && cand.location === seed.location;
+
+      if (nearby || sameLoc) {
+        group.photos.push(cand);
         used[j] = true;
+        // Inherit GPS from the first member that has it — lets no-GPS seeds
+        // get mapped via later same-location photos.
+        if (group.lat === null && cand.lat !== null) {
+          group.lat = cand.lat;
+          group.lng = cand.lng;
+        }
       }
     }
 
@@ -601,22 +615,24 @@ function plotDay(dayNum) {
   mapClusters = [];
 
   var dayPhotos = dayNum === 'all'
-    ? photos.filter(function(p) { return p.lat !== null; })
-    : photos.filter(function(p) { return p.day === dayNum && p.lat !== null; });
+    ? photos.slice()
+    : photos.filter(function(p) { return p.day === dayNum; });
 
-  // Sort by timestamp for route line
-  var sorted = dayPhotos.slice().sort(function(a, b) {
+  // Route line uses only GPS-tagged photos, in chronological order
+  var sorted = dayPhotos.filter(function(p) { return p.lat !== null; }).sort(function(a, b) {
     return (a.timestamp || '').localeCompare(b.timestamp || '');
   });
 
   var bounds = [];
 
-  // Cluster photos by proximity for map markers
+  // Cluster photos by proximity (or shared location string when GPS is missing)
   var clusters = clusterPhotos(dayPhotos);
   mapClusters = clusters;
 
   clusters.forEach(function(cluster, ci) {
-    // Use first photo's position for marker
+    // Skip clusters with no GPS at all — can't place them on the map
+    if (cluster.lat === null) return;
+
     var firstPhoto = cluster.photos[0];
     var color = timeColor(firstPhoto.timestamp);
     var thumbSrc = firstPhoto.thumb_url || (THUMB_BASE + firstPhoto.jpg);
@@ -639,15 +655,16 @@ function plotDay(dayNum) {
       iconAnchor: [18, 18]
     });
 
-    var marker = L.marker([firstPhoto.lat, firstPhoto.lng], { icon: icon }).addTo(map);
+    var marker = L.marker([cluster.lat, cluster.lng], { icon: icon }).addTo(map);
 
     // Build navigable popup
     marker.on('click', function() {
       showClusterPopup(marker, ci, 0);
     });
 
-    photoMarkers.push(marker);
-    bounds.push([firstPhoto.lat, firstPhoto.lng]);
+    // Index-align with mapClusters so popup nav can look up via photoMarkers[clusterIdx]
+    photoMarkers[ci] = marker;
+    bounds.push([cluster.lat, cluster.lng]);
   });
 
   // Route line from photo timestamps (not itinerary)
