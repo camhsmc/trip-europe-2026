@@ -1,21 +1,5 @@
 [
   {
-    "id": "IMG_9901",
-    "filename": "IMG_9901.HEIC",
-    "jpg": "IMG_9901.jpg",
-    "url": "https://optzbdbavpnxstpxrpbh.supabase.co/storage/v1/object/public/trip-photos/full/IMG_9901.jpg",
-    "thumb_url": "https://optzbdbavpnxstpxrpbh.supabase.co/storage/v1/object/public/trip-photos/thumbs/IMG_9901.jpg",
-    "lat": null,
-    "lng": null,
-    "timestamp": "2026-04-14T17:28:28Z",
-    "date": "2026-04-14",
-    "day": 0,
-    "category": "travel",
-    "location": "In Flight",
-    "caption": "On the plane — in-flight meal and a movie before landing in Europe",
-    "photographer": ""
-  },
-  {
     "id": "IMG_9907",
     "filename": "IMG_9907.HEIC",
     "jpg": "IMG_9907.jpg",
