@@ -2253,7 +2253,7 @@
     "category": "paris",
     "location": "Arc de Triomphe",
     "caption": "Arc de Triomphe",
-    "photographer": "Kara"
+    "photographer": ""
   },
   {
     "id": "IMG_0139",
@@ -2357,14 +2357,14 @@
     "jpg": "IMG_0890.jpg",
     "url": "https://optzbdbavpnxstpxrpbh.supabase.co/storage/v1/object/public/trip-photos/full/IMG_0890.jpg",
     "thumb_url": "https://optzbdbavpnxstpxrpbh.supabase.co/storage/v1/object/public/trip-photos/thumbs/IMG_0890.jpg",
-    "lat": 48.87358,
-    "lng": 2.294996666666667,
+    "lat": 48.8338,
+    "lng": 2.3324,
     "timestamp": "2026-04-21T21:39:11Z",
     "date": "2026-04-21",
     "day": 7,
     "category": "paris",
-    "location": "Arc de Triomphe",
-    "caption": "Arc de Triomphe up close",
+    "location": "Catacombs of Paris",
+    "caption": "Catacombs of Paris",
     "photographer": "Kara"
   }
 ]

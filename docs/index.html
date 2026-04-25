@@ -668,16 +668,25 @@ function plotDay(dayNum) {
   });
 
   // Route line from photo timestamps (not itinerary)
-  if (sorted.length > 1) {
-    var routeCoords = sorted.map(function(p) { return [p.lat, p.lng]; });
-    var line = L.polyline(routeCoords, {
+  // Kara's separate Germany trip is its own line; her Paris photos merge into the main line
+  // because we were together in Paris.
+  function isKaraSeparate(p) {
+    return p.photographer === 'Kara' && p.category !== 'paris';
+  }
+  var mainPhotos = sorted.filter(function(p) { return !isKaraSeparate(p); });
+  var karaPhotos = sorted.filter(isKaraSeparate);
+
+  [mainPhotos, karaPhotos].forEach(function(group) {
+    if (group.length < 2) return;
+    var coords = group.map(function(p) { return [p.lat, p.lng]; });
+    var line = L.polyline(coords, {
       color: '#c9a96e',
       weight: 2,
       opacity: 0.5,
       dashArray: '6,8'
     }).addTo(map);
     routeLines.push(line);
-  }
+  });
 
   if (bounds.length > 0) {
     map.fitBounds(bounds, { padding: [40, 40], maxZoom: 14 });
