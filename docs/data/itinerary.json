@@ -315,5 +315,16 @@
     "summary": "Wandering Germany's oldest city — the Roman Porta Nigra and the streets around it. The next day she'd head west to meet Cam in Paris.",
     "lodging": null,
     "stops": []
+  },
+  {
+    "day": 105,
+    "trip": "kara",
+    "date": "2026-04-18",
+    "title": "Day Trip to Luxembourg",
+    "theme": "kara",
+    "tone": "warm",
+    "summary": "An afternoon hop across the border to Luxembourg City — same day as Trier, just a short drive west.",
+    "lodging": null,
+    "stops": []
   }
 ]
