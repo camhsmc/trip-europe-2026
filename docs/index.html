@@ -94,7 +94,11 @@
       padding: 1.25rem 1.25rem 0.75rem;
       border-bottom: 1px solid #3a2e26;
       background: #1c1612;
+      cursor: pointer;
+      transition: background 0.2s;
     }
+    .section-header:hover { background: #251d17; }
+    .section-header:hover .section-header-label { color: #e8c69a; }
     .section-header-label {
       font-family: -apple-system, sans-serif;
       font-size: 0.7rem;
@@ -102,6 +106,7 @@
       text-transform: uppercase;
       letter-spacing: 0.15em;
       color: #c9a96e;
+      transition: color 0.2s;
     }
     .section-header-sub {
       font-size: 0.8rem;
@@ -607,9 +612,6 @@ function initMap() {
 var mapClusters = [];
 
 function plotDay(dayNum) {
-  clearMapLayers();
-  mapClusters = [];
-
   var dayPhotos;
   if (dayNum === 'all') {
     dayPhotos = photos.slice();
@@ -618,6 +620,12 @@ function plotDay(dayNum) {
     var entry = itinerary.find(function(d) { return d.day === dayNum; });
     dayPhotos = entry ? photos.filter(function(p) { return p.date === entry.date; }) : [];
   }
+  plotPhotos(dayPhotos);
+}
+
+function plotPhotos(dayPhotos) {
+  clearMapLayers();
+  mapClusters = [];
 
   // Route line uses only GPS-tagged photos, in chronological order
   var sorted = dayPhotos.filter(function(p) { return p.lat !== null; }).sort(function(a, b) {
@@ -847,14 +855,14 @@ function renderDayList() {
   var karaHtml = karaEntries.map(renderEntry).join('');
 
   if (camHtml) {
-    html += '<div class="section-header" data-trip="cam">' +
+    html += '<div class="section-header" data-trip="cam" onclick="showTrip(\'cam\')">' +
             '<div class="section-header-label">Cam</div>' +
             '<div class="section-header-sub">Normandy, grandpa\'s WWII sites in Germany, and Paris with my dad, uncle Doug, and brothers.</div>' +
             '</div>';
     html += camHtml;
   }
   if (karaHtml) {
-    html += '<div class="section-header" data-trip="kara">' +
+    html += '<div class="section-header" data-trip="kara" onclick="showTrip(\'kara\')">' +
             '<div class="section-header-label">Kara</div>' +
             '<div class="section-header-sub">A separate week in Germany visiting old roommates, then meeting up with Cam in Paris.</div>' +
             '</div>';
@@ -933,6 +941,26 @@ function flyToStop(lat, lng, event) {
   map.flyTo([lat, lng], 15, { duration: 1 });
 }
 
+// Clicking a section header (Cam / Kara) zooms the map to just that trip's photos.
+// Left panel stays fully visible; only the map view changes.
+function showTrip(trip) {
+  activeDay = 'trip-' + trip;
+
+  document.querySelectorAll('.day-pill').forEach(function(btn) { btn.classList.remove('active'); });
+  document.querySelectorAll('.day-card').forEach(function(card) {
+    card.classList.remove('active');
+    card.classList.remove('hidden');
+  });
+  document.querySelectorAll('.stop-list, .carousel-section').forEach(function(el) { el.classList.add('hidden'); });
+  document.querySelectorAll('.section-header').forEach(function(hdr) { hdr.classList.remove('hidden'); });
+
+  var tripPhotos = trip === 'kara'
+    ? photos.filter(isKaraSeparate)
+    : photos.filter(function(p) { return !isKaraSeparate(p); });
+
+  plotPhotos(tripPhotos);
+}
+
 // ============================================================
 // Lightbox with caption editing
 // ============================================================
@@ -956,9 +984,15 @@ function openLightbox(dayNum, photoId, event) {
 function openLightboxFromMap(photoId) {
   var photo = photos.find(function(p) { return p.id === photoId; });
   if (!photo) return;
-  lightboxPhotos = activeDay === 'all'
-    ? photos.filter(function(p) { return p.lat !== null; })
-    : photosForDay(activeDay);
+  if (activeDay === 'all') {
+    lightboxPhotos = photos.filter(function(p) { return p.lat !== null; });
+  } else if (activeDay === 'trip-kara') {
+    lightboxPhotos = photos.filter(isKaraSeparate);
+  } else if (activeDay === 'trip-cam') {
+    lightboxPhotos = photos.filter(function(p) { return !isKaraSeparate(p); });
+  } else {
+    lightboxPhotos = photosForDay(activeDay);
+  }
   lightboxIdx = lightboxPhotos.indexOf(photo);
   if (lightboxIdx < 0) lightboxIdx = 0;
   showLightboxPhoto();
