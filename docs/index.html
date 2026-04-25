@@ -89,6 +89,27 @@
       border-color: #c9a96e;
     }
 
+    /* Section header (Cam / Kara) */
+    .section-header {
+      padding: 1.25rem 1.25rem 0.75rem;
+      border-bottom: 1px solid #2a2a3a;
+      background: #16161e;
+    }
+    .section-header-label {
+      font-family: -apple-system, sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: #c9a96e;
+    }
+    .section-header-sub {
+      font-size: 0.8rem;
+      color: #888;
+      margin-top: 0.35rem;
+      line-height: 1.4;
+    }
+
     /* Day cards */
     .day-card {
       padding: 1.25rem;
@@ -614,9 +635,17 @@ function plotDay(dayNum) {
   clearMapLayers();
   mapClusters = [];
 
-  var dayPhotos = dayNum === 'all'
-    ? photos.slice()
-    : photos.filter(function(p) { return p.day === dayNum; });
+  var dayPhotos;
+  if (dayNum === 'all') {
+    dayPhotos = photos.slice();
+  } else {
+    var entry = itinerary.find(function(d) { return d.day === dayNum; });
+    if (entry && entry.trip === 'kara') {
+      dayPhotos = photos.filter(function(p) { return p.date === entry.date && isKaraSeparate(p); });
+    } else {
+      dayPhotos = photos.filter(function(p) { return p.day === dayNum && !isKaraSeparate(p); });
+    }
+  }
 
   // Route line uses only GPS-tagged photos, in chronological order
   var sorted = dayPhotos.filter(function(p) { return p.lat !== null; }).sort(function(a, b) {
@@ -770,11 +799,17 @@ function clearMapLayers() {
 // ============================================================
 // Day Nav
 // ============================================================
+// True if this photo belongs to Kara's separate (non-Paris) Germany trip.
+function isKaraSeparate(p) {
+  return p.photographer === 'Kara' && p.category !== 'paris';
+}
+
 function renderDayNav() {
   var nav = document.getElementById('day-nav');
   var html = '<button class="day-pill active" onclick="showDay(\'all\')">All</button>';
   itinerary.forEach(function(d) {
-    var n = photos.filter(function(p) { return p.day === d.day; }).length;
+    if (d.trip === 'kara') return; // Kara cards aren't part of the day-pill cycle
+    var n = photos.filter(function(p) { return p.day === d.day && !isKaraSeparate(p); }).length;
     if (n === 0) return;
     html += '<button class="day-pill" onclick="showDay(' + d.day + ')">Day ' + d.day + '</button>';
   });
@@ -784,65 +819,93 @@ function renderDayNav() {
 // ============================================================
 // Day List
 // ============================================================
+function photosForEntry(d) {
+  if (d.trip === 'kara') {
+    return photos.filter(function(p) {
+      return p.date === d.date && isKaraSeparate(p);
+    });
+  }
+  return photos.filter(function(p) {
+    return p.day === d.day && !isKaraSeparate(p);
+  });
+}
+
 function renderDayList() {
   var list = document.getElementById('day-list');
   var html = '';
 
-  itinerary.forEach(function(d) {
-    var dayPhotos = photos.filter(function(p) { return p.day === d.day; });
-    if (dayPhotos.length === 0) return;
+  var camEntries = itinerary.filter(function(d) { return d.trip !== 'kara'; });
+  var karaEntries = itinerary.filter(function(d) { return d.trip === 'kara'; });
+
+  function renderEntry(d) {
+    var dayPhotos = photosForEntry(d);
+    if (dayPhotos.length === 0) return '';
     var photoCount = dayPhotos.length;
     var stopCount = (d.stops || []).length;
 
-    html += '<div class="day-card" id="day-card-' + d.day + '" onclick="showDay(' + d.day + ')">';
-    html += '<div class="day-date">' + formatDate(d.date) + '</div>';
-    html += '<div class="day-title">' + d.title + '</div>';
-    html += '<div class="day-summary">' + d.summary + '</div>';
-    html += '<div class="day-stats">';
-    if (photoCount > 0) html += '<span>&#128247; ' + photoCount + ' photos</span>';
-    if (stopCount > 0) html += '<span>&#128205; ' + stopCount + ' stops</span>';
-    html += '</div>';
+    var inner = '<div class="day-card" id="day-card-' + d.day + '" onclick="showDay(' + d.day + ')">';
+    inner += '<div class="day-date">' + formatDate(d.date) + '</div>';
+    inner += '<div class="day-title">' + d.title + '</div>';
+    inner += '<div class="day-summary">' + d.summary + '</div>';
+    inner += '<div class="day-stats">';
+    if (photoCount > 0) inner += '<span>&#128247; ' + photoCount + ' photos</span>';
+    if (stopCount > 0) inner += '<span>&#128205; ' + stopCount + ' stops</span>';
+    inner += '</div>';
 
     // Stops
     if (d.stops && d.stops.length > 0) {
-      html += '<div class="stop-list hidden" id="stops-' + d.day + '">';
+      inner += '<div class="stop-list hidden" id="stops-' + d.day + '">';
       d.stops.forEach(function(s) {
-        html += '<div class="stop-item" onclick="flyToStop(' + s.lat + ',' + s.lng + ', event)">';
-        html += '<div class="stop-name">' + s.name + '</div>';
-        if (s.note) html += '<div class="stop-note">' + s.note + '</div>';
-        html += '</div>';
+        inner += '<div class="stop-item" onclick="flyToStop(' + s.lat + ',' + s.lng + ', event)">';
+        inner += '<div class="stop-name">' + s.name + '</div>';
+        if (s.note) inner += '<div class="stop-note">' + s.note + '</div>';
+        inner += '</div>';
       });
-      html += '</div>';
+      inner += '</div>';
     }
 
     // Photo carousels grouped by location
-    if (dayPhotos.length > 0) {
-      html += '<div class="carousel-section hidden" id="photos-' + d.day + '">';
-
-      var groups = clusterPhotos(dayPhotos);
-      groups.forEach(function(g) {
-        html += '<div class="carousel-group">';
-        if (g.label) html += '<div class="carousel-label">' + escapeHtml(g.label) + '</div>';
-        html += '<div class="carousel-track">';
-        g.photos.forEach(function(p, pi) {
-          var thumbSrc = p.thumb_url || (THUMB_BASE + p.jpg);
-          var color = timeColor(p.timestamp);
-          html += '<div class="carousel-item" onclick="openLightbox(' + d.day + ',\'' + p.id + '\', event)">';
-          html += '<img src="' + thumbSrc + '" loading="lazy" />';
-          html += '<div class="time-border" style="border-color:' + color + ';"></div>';
-          html += '<div class="time-label">' + shortTime(p.timestamp) + '</div>';
-          html += '</div>';
-        });
-        html += '</div></div>';
+    inner += '<div class="carousel-section hidden" id="photos-' + d.day + '">';
+    var groups = clusterPhotos(dayPhotos);
+    groups.forEach(function(g) {
+      inner += '<div class="carousel-group">';
+      if (g.label) inner += '<div class="carousel-label">' + escapeHtml(g.label) + '</div>';
+      inner += '<div class="carousel-track">';
+      g.photos.forEach(function(p) {
+        var thumbSrc = p.thumb_url || (THUMB_BASE + p.jpg);
+        var color = timeColor(p.timestamp);
+        inner += '<div class="carousel-item" onclick="openLightbox(' + d.day + ',\'' + p.id + '\', event)">';
+        inner += '<img src="' + thumbSrc + '" loading="lazy" />';
+        inner += '<div class="time-border" style="border-color:' + color + ';"></div>';
+        inner += '<div class="time-label">' + shortTime(p.timestamp) + '</div>';
+        inner += '</div>';
       });
+      inner += '</div></div>';
+    });
+    inner += '<div class="time-legend"><span>AM</span><div class="time-legend-bar"></div><span>PM</span></div>';
+    inner += '</div>';
 
-      // Time legend
-      html += '<div class="time-legend"><span>AM</span><div class="time-legend-bar"></div><span>PM</span></div>';
-      html += '</div>';
-    }
+    inner += '</div>';
+    return inner;
+  }
 
-    html += '</div>';
-  });
+  var camHtml = camEntries.map(renderEntry).join('');
+  var karaHtml = karaEntries.map(renderEntry).join('');
+
+  if (camHtml) {
+    html += '<div class="section-header">' +
+            '<div class="section-header-label">Cam</div>' +
+            '<div class="section-header-sub">Normandy, grandpa\'s WWII sites in Germany, and Paris with my dad, uncle Doug, and brothers.</div>' +
+            '</div>';
+    html += camHtml;
+  }
+  if (karaHtml) {
+    html += '<div class="section-header">' +
+            '<div class="section-header-label">Kara</div>' +
+            '<div class="section-header-sub">A separate week in Germany visiting old roommates, then meeting up with Cam in Paris.</div>' +
+            '</div>';
+    html += karaHtml;
+  }
 
   list.innerHTML = html;
 }
@@ -887,9 +950,17 @@ function flyToStop(lat, lng, event) {
 // ============================================================
 // Lightbox with caption editing
 // ============================================================
+function photosForDay(dayNum) {
+  var entry = itinerary.find(function(d) { return d.day === dayNum; });
+  if (entry && entry.trip === 'kara') {
+    return photos.filter(function(p) { return p.date === entry.date && isKaraSeparate(p); });
+  }
+  return photos.filter(function(p) { return p.day === dayNum && !isKaraSeparate(p); });
+}
+
 function openLightbox(dayNum, photoId, event) {
   if (event) event.stopPropagation();
-  lightboxPhotos = photos.filter(function(p) { return p.day === dayNum; });
+  lightboxPhotos = photosForDay(dayNum);
   lightboxIdx = lightboxPhotos.findIndex(function(p) { return p.id === photoId; });
   if (lightboxIdx < 0) lightboxIdx = 0;
   showLightboxPhoto();
@@ -901,7 +972,7 @@ function openLightboxFromMap(photoId) {
   if (!photo) return;
   lightboxPhotos = activeDay === 'all'
     ? photos.filter(function(p) { return p.lat !== null; })
-    : photos.filter(function(p) { return p.day === activeDay; });
+    : photosForDay(activeDay);
   lightboxIdx = lightboxPhotos.indexOf(photo);
   if (lightboxIdx < 0) lightboxIdx = 0;
   showLightboxPhoto();

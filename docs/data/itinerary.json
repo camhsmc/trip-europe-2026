@@ -282,5 +282,38 @@
         "note": "EI 521 CDG → Dublin at 10:20 AM, then EI 89 Dublin → MSP."
       }
     ]
+  },
+  {
+    "day": 102,
+    "trip": "kara",
+    "date": "2026-04-16",
+    "title": "Saarland Castle Ruins",
+    "theme": "kara",
+    "tone": "warm",
+    "summary": "While the brothers walked Normandy, Kara was in southwest Germany — exploring castle ruins in Saarland with her old roommates.",
+    "lodging": null,
+    "stops": []
+  },
+  {
+    "day": 103,
+    "trip": "kara",
+    "date": "2026-04-17",
+    "title": "Rhine Valley by Bike",
+    "theme": "kara",
+    "tone": "warm",
+    "summary": "A bike day along the Middle Rhine — vineyards climbing the hillsides, hilltop castles overhead, and the river running between Bingen and Rüdesheim.",
+    "lodging": null,
+    "stops": []
+  },
+  {
+    "day": 104,
+    "trip": "kara",
+    "date": "2026-04-18",
+    "title": "Trier",
+    "theme": "kara",
+    "tone": "warm",
+    "summary": "Wandering Germany's oldest city — the Roman Porta Nigra and the streets around it. The next day she'd head west to meet Cam in Paris.",
+    "lodging": null,
+    "stops": []
   }
 ]
