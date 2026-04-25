@@ -427,6 +427,7 @@
 </div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet-polylinedecorator@1.6.0/dist/leaflet.polylineDecorator.js"></script>
 <script>
 // ============================================================
 // State
@@ -613,12 +614,9 @@ function plotDay(dayNum) {
   if (dayNum === 'all') {
     dayPhotos = photos.slice();
   } else {
+    // Show all photos (Cam + Kara) for this date — both trips on the map together.
     var entry = itinerary.find(function(d) { return d.day === dayNum; });
-    if (entry && entry.trip === 'kara') {
-      dayPhotos = photos.filter(function(p) { return p.date === entry.date && isKaraSeparate(p); });
-    } else {
-      dayPhotos = photos.filter(function(p) { return p.day === dayNum && !isKaraSeparate(p); });
-    }
+    dayPhotos = entry ? photos.filter(function(p) { return p.date === entry.date; }) : [];
   }
 
   // Route line uses only GPS-tagged photos, in chronological order
@@ -670,12 +668,9 @@ function plotDay(dayNum) {
     bounds.push([cluster.lat, cluster.lng]);
   });
 
-  // Route line from photo timestamps (not itinerary)
+  // Route line from photo timestamps (not itinerary).
   // Kara's separate Germany trip is its own line; her Paris photos merge into the main line
-  // because we were together in Paris.
-  function isKaraSeparate(p) {
-    return p.photographer === 'Kara' && p.category !== 'paris';
-  }
+  // because we were together in Paris. An arrowhead at the newest endpoint shows direction.
   var mainPhotos = sorted.filter(function(p) { return !isKaraSeparate(p); });
   var karaPhotos = sorted.filter(isKaraSeparate);
 
@@ -689,6 +684,21 @@ function plotDay(dayNum) {
       dashArray: '6,8'
     }).addTo(map);
     routeLines.push(line);
+
+    if (typeof L.polylineDecorator === 'function') {
+      var arrow = L.polylineDecorator(line, {
+        patterns: [{
+          offset: '100%',
+          repeat: 0,
+          symbol: L.Symbol.arrowHead({
+            pixelSize: 12,
+            polygon: false,
+            pathOptions: { stroke: true, color: '#c9a96e', weight: 2, opacity: 0.85 }
+          })
+        }]
+      }).addTo(map);
+      routeLines.push(arrow);
+    }
   });
 
   if (bounds.length > 0) {
@@ -786,7 +796,8 @@ function renderDayList() {
     var photoCount = dayPhotos.length;
     var stopCount = (d.stops || []).length;
 
-    var inner = '<div class="day-card" id="day-card-' + d.day + '" onclick="showDay(' + d.day + ')">';
+    var trip = d.trip === 'kara' ? 'kara' : 'cam';
+    var inner = '<div class="day-card" id="day-card-' + d.day + '" data-trip="' + trip + '" data-date="' + d.date + '" onclick="showDay(' + d.day + ')">';
     inner += '<div class="day-date">' + formatDate(d.date) + '</div>';
     inner += '<div class="day-title">' + d.title + '</div>';
     inner += '<div class="day-summary">' + d.summary + '</div>';
@@ -836,14 +847,14 @@ function renderDayList() {
   var karaHtml = karaEntries.map(renderEntry).join('');
 
   if (camHtml) {
-    html += '<div class="section-header">' +
+    html += '<div class="section-header" data-trip="cam">' +
             '<div class="section-header-label">Cam</div>' +
             '<div class="section-header-sub">Normandy, grandpa\'s WWII sites in Germany, and Paris with my dad, uncle Doug, and brothers.</div>' +
             '</div>';
     html += camHtml;
   }
   if (karaHtml) {
-    html += '<div class="section-header">' +
+    html += '<div class="section-header" data-trip="kara">' +
             '<div class="section-header-label">Kara</div>' +
             '<div class="section-header-sub">A separate week in Germany visiting old roommates, then meeting up with Cam in Paris.</div>' +
             '</div>';
@@ -867,19 +878,51 @@ function showDay(dayNum) {
     }
   });
 
+  // Determine the date to focus on. Picking any day (Cam or Kara) shows ALL
+  // entries (and photos) for that date — both trips, side by side.
+  var targetDate = null;
+  if (dayNum !== 'all') {
+    var entry = itinerary.find(function(d) { return d.day === dayNum; });
+    if (entry) targetDate = entry.date;
+  }
+
+  // Reset all card and section state
   document.querySelectorAll('.day-card').forEach(function(card) { card.classList.remove('active'); });
   document.querySelectorAll('.stop-list, .carousel-section').forEach(function(el) { el.classList.add('hidden'); });
 
-  if (dayNum !== 'all') {
-    var card = document.getElementById('day-card-' + dayNum);
-    if (card) {
-      card.classList.add('active');
-      card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  // Hide cards that don't match the selected date; show all when 'all'
+  document.querySelectorAll('.day-card').forEach(function(card) {
+    if (dayNum === 'all' || card.dataset.date === targetDate) {
+      card.classList.remove('hidden');
+    } else {
+      card.classList.add('hidden');
     }
-    var stops = document.getElementById('stops-' + dayNum);
-    if (stops) stops.classList.remove('hidden');
-    var strip = document.getElementById('photos-' + dayNum);
-    if (strip) strip.classList.remove('hidden');
+  });
+
+  // Hide a section header if all of its cards are hidden
+  document.querySelectorAll('.section-header').forEach(function(hdr) {
+    var trip = hdr.dataset.trip;
+    var anyVisible = false;
+    document.querySelectorAll('.day-card[data-trip="' + trip + '"]').forEach(function(c) {
+      if (!c.classList.contains('hidden')) anyVisible = true;
+    });
+    hdr.classList.toggle('hidden', !anyVisible);
+  });
+
+  if (dayNum !== 'all') {
+    // Expand stops/photos for every visible card on this date (Cam + Kara)
+    itinerary.forEach(function(d) {
+      if (d.date !== targetDate) return;
+      var stops = document.getElementById('stops-' + d.day);
+      if (stops) stops.classList.remove('hidden');
+      var strip = document.getElementById('photos-' + d.day);
+      if (strip) strip.classList.remove('hidden');
+    });
+    var clicked = document.getElementById('day-card-' + dayNum);
+    if (clicked) {
+      clicked.classList.add('active');
+      clicked.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
   }
 
   plotDay(dayNum);
