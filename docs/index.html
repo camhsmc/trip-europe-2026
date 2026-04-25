@@ -444,6 +444,7 @@ var photoMarkers = [];
 var stopMarkers = [];
 var routeLines = [];
 var activeDay = null;
+var visibleMapPhotos = [];
 var lightboxPhotos = [];
 var lightboxIdx = 0;
 
@@ -626,6 +627,7 @@ function plotDay(dayNum) {
 function plotPhotos(dayPhotos) {
   clearMapLayers();
   mapClusters = [];
+  visibleMapPhotos = dayPhotos.slice();
 
   // Route line uses only GPS-tagged photos, in chronological order
   var sorted = dayPhotos.filter(function(p) { return p.lat !== null; }).sort(function(a, b) {
@@ -942,21 +944,26 @@ function flyToStop(lat, lng, event) {
 }
 
 // Clicking a section header (Cam / Kara) zooms the map to just that trip's photos.
-// Left panel stays fully visible; only the map view changes.
+// If a specific day is currently selected, scope to that date too. Left panel state
+// is preserved — only the map view changes.
 function showTrip(trip) {
-  activeDay = 'trip-' + trip;
+  var tripFilter = trip === 'kara'
+    ? isKaraSeparate
+    : function(p) { return !isKaraSeparate(p); };
 
-  document.querySelectorAll('.day-pill').forEach(function(btn) { btn.classList.remove('active'); });
-  document.querySelectorAll('.day-card').forEach(function(card) {
-    card.classList.remove('active');
-    card.classList.remove('hidden');
-  });
-  document.querySelectorAll('.stop-list, .carousel-section').forEach(function(el) { el.classList.add('hidden'); });
-  document.querySelectorAll('.section-header').forEach(function(hdr) { hdr.classList.remove('hidden'); });
+  var targetDate = null;
+  if (typeof activeDay === 'number') {
+    var entry = itinerary.find(function(d) { return d.day === activeDay; });
+    if (entry) targetDate = entry.date;
+  }
 
-  var tripPhotos = trip === 'kara'
-    ? photos.filter(isKaraSeparate)
-    : photos.filter(function(p) { return !isKaraSeparate(p); });
+  var tripPhotos;
+  if (targetDate) {
+    tripPhotos = photos.filter(function(p) { return p.date === targetDate && tripFilter(p); });
+    if (tripPhotos.length === 0) tripPhotos = photos.filter(tripFilter); // fallback if no overlap
+  } else {
+    tripPhotos = photos.filter(tripFilter);
+  }
 
   plotPhotos(tripPhotos);
 }
@@ -984,15 +991,9 @@ function openLightbox(dayNum, photoId, event) {
 function openLightboxFromMap(photoId) {
   var photo = photos.find(function(p) { return p.id === photoId; });
   if (!photo) return;
-  if (activeDay === 'all') {
-    lightboxPhotos = photos.filter(function(p) { return p.lat !== null; });
-  } else if (activeDay === 'trip-kara') {
-    lightboxPhotos = photos.filter(isKaraSeparate);
-  } else if (activeDay === 'trip-cam') {
-    lightboxPhotos = photos.filter(function(p) { return !isKaraSeparate(p); });
-  } else {
-    lightboxPhotos = photosForDay(activeDay);
-  }
+  // Mirror whatever's currently on the map.
+  lightboxPhotos = visibleMapPhotos.filter(function(p) { return p.lat !== null; });
+  if (lightboxPhotos.length === 0) lightboxPhotos = [photo];
   lightboxIdx = lightboxPhotos.indexOf(photo);
   if (lightboxIdx < 0) lightboxIdx = 0;
   showLightboxPhoto();
