@@ -76,7 +76,7 @@
     "day": 1,
     "category": "normandy",
     "location": "Bayeux Cathedral",
-    "caption": "Selfie in front of the Bayeux Cathedral — first evening in Normandy",
+    "caption": "Selfie in front of the Bayeux Cathedral \u2014 first evening in Normandy",
     "photographer": ""
   },
   {
@@ -108,7 +108,7 @@
     "day": 1,
     "category": "normandy",
     "location": "Le Garde Manger, Bayeux",
-    "caption": "Steak and frites at Le Garde Manger — the right way to start a trip",
+    "caption": "Steak and frites at Le Garde Manger \u2014 the right way to start a trip",
     "photographer": ""
   },
   {
@@ -123,8 +123,8 @@
     "date": "2026-04-16",
     "day": 2,
     "category": "normandy",
-    "location": "Hôtel Le Bayeux",
-    "caption": "Hotel breakfast spread in Bayeux — fueling up for a long day on the beaches",
+    "location": "H\u00f4tel Le Bayeux",
+    "caption": "Hotel breakfast spread in Bayeux \u2014 fueling up for a long day on the beaches",
     "photographer": ""
   },
   {
@@ -140,7 +140,7 @@
     "day": 2,
     "category": "normandy",
     "location": "Omaha Beach",
-    "caption": "Walking Omaha Beach at dawn — Les Braves sculpture and the memorial staircase",
+    "caption": "Walking Omaha Beach at dawn \u2014 Les Braves sculpture and the memorial staircase",
     "photographer": ""
   },
   {
@@ -156,7 +156,7 @@
     "day": 2,
     "category": "normandy",
     "location": "Omaha Beach",
-    "caption": "Selfie on Omaha Beach with Les Braves sculpture behind — early morning, overcast skies",
+    "caption": "Selfie on Omaha Beach with Les Braves sculpture behind \u2014 early morning, overcast skies",
     "photographer": ""
   },
   {
@@ -204,7 +204,7 @@
     "day": 2,
     "category": "normandy",
     "location": "Pointe du Hoc",
-    "caption": "Selfie at Pointe du Hoc — the brothers and the Channel behind",
+    "caption": "Selfie at Pointe du Hoc \u2014 the brothers and the Channel behind",
     "photographer": ""
   },
   {
@@ -236,7 +236,7 @@
     "day": 2,
     "category": "normandy",
     "location": "Atlantic Wall Battery",
-    "caption": "Examining a destroyed German artillery piece — remnants of the Atlantic Wall",
+    "caption": "Examining a destroyed German artillery piece \u2014 remnants of the Atlantic Wall",
     "photographer": ""
   },
   {
@@ -252,7 +252,7 @@
     "day": 2,
     "category": "normandy",
     "location": "Normandy American Cemetery",
-    "caption": "Rows of white crosses stretching across the Normandy American Cemetery — 9,388 graves",
+    "caption": "Rows of white crosses stretching across the Normandy American Cemetery \u2014 9,388 graves",
     "photographer": ""
   },
   {
@@ -268,7 +268,7 @@
     "day": 2,
     "category": "normandy",
     "location": "Normandy American Cemetery",
-    "caption": "Flag ceremony at the Normandy American Cemetery — a solemn moment with other visitors",
+    "caption": "Flag ceremony at the Normandy American Cemetery \u2014 a solemn moment with other visitors",
     "photographer": ""
   },
   {
@@ -284,7 +284,7 @@
     "day": 2,
     "category": "normandy",
     "location": "Normandy American Cemetery Chapel",
-    "caption": "Painted ceiling mosaic inside the cemetery memorial chapel — angels and stars",
+    "caption": "Painted ceiling mosaic inside the cemetery memorial chapel \u2014 angels and stars",
     "photographer": ""
   },
   {
@@ -316,7 +316,7 @@
     "day": 2,
     "category": "normandy",
     "location": "Longues-sur-Mer Battery",
-    "caption": "Looking down the barrel of a German coastal gun — the battery at Longues-sur-Mer",
+    "caption": "Looking down the barrel of a German coastal gun \u2014 the battery at Longues-sur-Mer",
     "photographer": ""
   },
   {
@@ -332,8 +332,24 @@
     "day": 2,
     "category": "normandy",
     "location": "Longues-sur-Mer Battery",
-    "caption": "Selfie in front of the Longues-sur-Mer battery bunker — massive German gun behind",
+    "caption": "Selfie in front of the Longues-sur-Mer battery bunker \u2014 massive German gun behind",
     "photographer": ""
+  },
+  {
+    "id": "IMG_0821",
+    "filename": "IMG_0821.HEIC",
+    "jpg": "IMG_0821.jpg",
+    "url": "https://optzbdbavpnxstpxrpbh.supabase.co/storage/v1/object/public/trip-photos/full/IMG_0821.jpg",
+    "thumb_url": "https://optzbdbavpnxstpxrpbh.supabase.co/storage/v1/object/public/trip-photos/thumbs/IMG_0821.jpg",
+    "lat": 49.35405833333333,
+    "lng": 7.753036666666667,
+    "timestamp": "2026-04-16T20:35:18Z",
+    "date": "2026-04-16",
+    "day": 2,
+    "category": "travel",
+    "location": "Saarland, Germany",
+    "caption": "Saarland \u2014 westbound on the autobahn",
+    "photographer": "Kara"
   },
   {
     "id": "IMG_9942",
@@ -364,7 +380,7 @@
     "day": 3,
     "category": "normandy",
     "location": "Bayeux Cathedral",
-    "caption": "Inside the Bayeux Cathedral — soaring Gothic nave",
+    "caption": "Inside the Bayeux Cathedral \u2014 soaring Gothic nave",
     "photographer": ""
   },
   {
@@ -380,7 +396,7 @@
     "day": 3,
     "category": "normandy",
     "location": "Pegasus Bridge",
-    "caption": "Walking toward Pegasus Bridge — the brothers crossing the road together",
+    "caption": "Walking toward Pegasus Bridge \u2014 the brothers crossing the road together",
     "photographer": ""
   },
   {
@@ -412,7 +428,7 @@
     "day": 3,
     "category": "normandy",
     "location": "Pegasus Memorial Museum",
-    "caption": "C-47 transport plane on display at the Pegasus Memorial — D-Day invasion stripes",
+    "caption": "C-47 transport plane on display at the Pegasus Memorial \u2014 D-Day invasion stripes",
     "photographer": ""
   },
   {
@@ -428,8 +444,104 @@
     "day": 3,
     "category": "normandy",
     "location": "Lunch Stop, en route to Germany",
-    "caption": "Lunch stop on the drive to Germany — the whole crew around the table, map on the wall",
+    "caption": "Lunch stop on the drive to Germany \u2014 the whole crew around the table, map on the wall",
     "photographer": ""
+  },
+  {
+    "id": "IMG_0823",
+    "filename": "IMG_0823.HEIC",
+    "jpg": "IMG_0823.jpg",
+    "url": "https://optzbdbavpnxstpxrpbh.supabase.co/storage/v1/object/public/trip-photos/full/IMG_0823.jpg",
+    "thumb_url": "https://optzbdbavpnxstpxrpbh.supabase.co/storage/v1/object/public/trip-photos/thumbs/IMG_0823.jpg",
+    "lat": 50.09996383333333,
+    "lng": 7.739713333333333,
+    "timestamp": "2026-04-17T17:08:13Z",
+    "date": "2026-04-17",
+    "day": 3,
+    "category": "travel",
+    "location": "Boppard, Rhine Valley",
+    "caption": "Rhine Valley pit stop near Boppard",
+    "photographer": "Kara"
+  },
+  {
+    "id": "IMG_0832",
+    "filename": "IMG_0832.HEIC",
+    "jpg": "IMG_0832.jpg",
+    "url": "https://optzbdbavpnxstpxrpbh.supabase.co/storage/v1/object/public/trip-photos/full/IMG_0832.jpg",
+    "thumb_url": "https://optzbdbavpnxstpxrpbh.supabase.co/storage/v1/object/public/trip-photos/thumbs/IMG_0832.jpg",
+    "lat": 50.00648888333333,
+    "lng": 7.854633333333333,
+    "timestamp": "2026-04-17T19:46:15Z",
+    "date": "2026-04-17",
+    "day": 3,
+    "category": "travel",
+    "location": "Bingen am Rhein",
+    "caption": "Bingen on the Rhine",
+    "photographer": "Kara"
+  },
+  {
+    "id": "IMG_0834",
+    "filename": "IMG_0834.HEIC",
+    "jpg": "IMG_0834.jpg",
+    "url": "https://optzbdbavpnxstpxrpbh.supabase.co/storage/v1/object/public/trip-photos/full/IMG_0834.jpg",
+    "thumb_url": "https://optzbdbavpnxstpxrpbh.supabase.co/storage/v1/object/public/trip-photos/thumbs/IMG_0834.jpg",
+    "lat": 49.988575,
+    "lng": 7.864646666666666,
+    "timestamp": "2026-04-17T20:33:14Z",
+    "date": "2026-04-17",
+    "day": 3,
+    "category": "travel",
+    "location": "R\u00fcdesheim am Rhein",
+    "caption": "R\u00fcdesheim am Rhein",
+    "photographer": "Kara"
+  },
+  {
+    "id": "IMG_0836",
+    "filename": "IMG_0836.HEIC",
+    "jpg": "IMG_0836.jpg",
+    "url": "https://optzbdbavpnxstpxrpbh.supabase.co/storage/v1/object/public/trip-photos/full/IMG_0836.jpg",
+    "thumb_url": "https://optzbdbavpnxstpxrpbh.supabase.co/storage/v1/object/public/trip-photos/thumbs/IMG_0836.jpg",
+    "lat": 49.98854166666667,
+    "lng": 7.864645,
+    "timestamp": "2026-04-17T20:33:20Z",
+    "date": "2026-04-17",
+    "day": 3,
+    "category": "travel",
+    "location": "R\u00fcdesheim am Rhein",
+    "caption": "Vines above R\u00fcdesheim",
+    "photographer": "Kara"
+  },
+  {
+    "id": "IMG_0838",
+    "filename": "IMG_0838.HEIC",
+    "jpg": "IMG_0838.jpg",
+    "url": "https://optzbdbavpnxstpxrpbh.supabase.co/storage/v1/object/public/trip-photos/full/IMG_0838.jpg",
+    "thumb_url": "https://optzbdbavpnxstpxrpbh.supabase.co/storage/v1/object/public/trip-photos/thumbs/IMG_0838.jpg",
+    "lat": 49.98886166666666,
+    "lng": 7.864671666666666,
+    "timestamp": "2026-04-17T20:33:53Z",
+    "date": "2026-04-17",
+    "day": 3,
+    "category": "travel",
+    "location": "R\u00fcdesheim am Rhein",
+    "caption": "R\u00fcdesheim riverside",
+    "photographer": "Kara"
+  },
+  {
+    "id": "IMG_0847",
+    "filename": "IMG_0847.HEIC",
+    "jpg": "IMG_0847.jpg",
+    "url": "https://optzbdbavpnxstpxrpbh.supabase.co/storage/v1/object/public/trip-photos/full/IMG_0847.jpg",
+    "thumb_url": "https://optzbdbavpnxstpxrpbh.supabase.co/storage/v1/object/public/trip-photos/thumbs/IMG_0847.jpg",
+    "lat": 49.96757166666666,
+    "lng": 7.893558333333333,
+    "timestamp": "2026-04-17T21:54:57Z",
+    "date": "2026-04-17",
+    "day": 3,
+    "category": "travel",
+    "location": "Hessen countryside",
+    "caption": "Hessen on the way to Aachen",
+    "photographer": "Kara"
   },
   {
     "id": "IMG_9968",
@@ -444,7 +556,7 @@
     "day": 4,
     "category": "wwii-grandpa",
     "location": "Langerwehe-Merode",
-    "caption": "Meeting Albert Trosdorf in Langerwehe — studying wartime maps on the roadside",
+    "caption": "Meeting Albert Trosdorf in Langerwehe \u2014 studying wartime maps on the roadside",
     "photographer": ""
   },
   {
@@ -476,7 +588,7 @@
     "day": 4,
     "category": "wwii-grandpa",
     "location": "Langerwehe Brick Factory",
-    "caption": "The old brick factory chimney at Langerwehe — silhouetted against the sky",
+    "caption": "The old brick factory chimney at Langerwehe \u2014 silhouetted against the sky",
     "photographer": ""
   },
   {
@@ -492,7 +604,7 @@
     "day": 4,
     "category": "wwii-grandpa",
     "location": "Frenzerburg Castle",
-    "caption": "Standing outside the brick buildings near Frenzerburg Castle — where Grandpa's unit was positioned",
+    "caption": "Standing outside the brick buildings near Frenzerburg Castle \u2014 where Grandpa's unit was positioned",
     "photographer": ""
   },
   {
@@ -524,7 +636,7 @@
     "day": 4,
     "category": "wwii-grandpa",
     "location": "Frenzerburg Castle",
-    "caption": "Selfie in the trees near Frenzerburg — spring leaves just coming in",
+    "caption": "Selfie in the trees near Frenzerburg \u2014 spring leaves just coming in",
     "photographer": ""
   },
   {
@@ -571,8 +683,8 @@
     "date": "2026-04-18",
     "day": 4,
     "category": "wwii-grandpa",
-    "location": "Hürtgen Forest",
-    "caption": "The group gathered around an information board in the Hürtgen Forest",
+    "location": "H\u00fcrtgen Forest",
+    "caption": "The group gathered around an information board in the H\u00fcrtgen Forest",
     "photographer": ""
   },
   {
@@ -587,8 +699,8 @@
     "date": "2026-04-18",
     "day": 4,
     "category": "wwii-grandpa",
-    "location": "Schevenhütte",
-    "caption": "Currywurst and frites for lunch in Schevenhütte — well-earned after a morning of walking",
+    "location": "Schevenh\u00fctte",
+    "caption": "Currywurst and frites for lunch in Schevenh\u00fctte \u2014 well-earned after a morning of walking",
     "photographer": ""
   },
   {
@@ -604,7 +716,7 @@
     "day": 4,
     "category": "wwii-grandpa",
     "location": "Vossenack",
-    "caption": "A winding dirt path through green fields near Vossenack — the landscape Grandpa marched through",
+    "caption": "A winding dirt path through green fields near Vossenack \u2014 the landscape Grandpa marched through",
     "photographer": ""
   },
   {
@@ -620,7 +732,7 @@
     "day": 4,
     "category": "wwii-grandpa",
     "location": "Vossenack",
-    "caption": "Dad photographing the same dirt road — comparing it to Grandpa's wartime photos",
+    "caption": "Dad photographing the same dirt road \u2014 comparing it to Grandpa's wartime photos",
     "photographer": ""
   },
   {
@@ -636,7 +748,7 @@
     "day": 4,
     "category": "wwii-grandpa",
     "location": "Vossenack",
-    "caption": "Old stone bunker in the woods near Vossenack — door still intact after 80 years",
+    "caption": "Old stone bunker in the woods near Vossenack \u2014 door still intact after 80 years",
     "photographer": ""
   },
   {
@@ -652,7 +764,7 @@
     "day": 4,
     "category": "wwii-grandpa",
     "location": "Vossenack",
-    "caption": "Inside the bunker — shelving and walls still standing, leaf litter on the floor",
+    "caption": "Inside the bunker \u2014 shelving and walls still standing, leaf litter on the floor",
     "photographer": ""
   },
   {
@@ -684,7 +796,7 @@
     "day": 4,
     "category": "wwii-grandpa",
     "location": "Vossenack",
-    "caption": "Open green field near Vossenack — quiet now, but once a battlefield",
+    "caption": "Open green field near Vossenack \u2014 quiet now, but once a battlefield",
     "photographer": ""
   },
   {
@@ -716,7 +828,7 @@
     "day": 4,
     "category": "wwii-grandpa",
     "location": "Vossenack Forest",
-    "caption": "Concrete foundations in the forest — remnants of a wartime structure near Vossenack",
+    "caption": "Concrete foundations in the forest \u2014 remnants of a wartime structure near Vossenack",
     "photographer": ""
   },
   {
@@ -732,7 +844,7 @@
     "day": 4,
     "category": "wwii-grandpa",
     "location": "Vossenack Forest",
-    "caption": "Moss-covered stone in the forest floor — possible foundation remnant",
+    "caption": "Moss-covered stone in the forest floor \u2014 possible foundation remnant",
     "photographer": ""
   },
   {
@@ -748,7 +860,7 @@
     "day": 4,
     "category": "wwii-grandpa",
     "location": "Vossenack",
-    "caption": "Landscape view near Vossenack — hedgerows and birch trees under heavy clouds",
+    "caption": "Landscape view near Vossenack \u2014 hedgerows and birch trees under heavy clouds",
     "photographer": ""
   },
   {
@@ -764,7 +876,7 @@
     "day": 4,
     "category": "wwii-grandpa",
     "location": "Vossenack",
-    "caption": "Same view, slightly wider — the quiet fields that saw some of the war's worst fighting",
+    "caption": "Same view, slightly wider \u2014 the quiet fields that saw some of the war's worst fighting",
     "photographer": ""
   },
   {
@@ -779,8 +891,8 @@
     "date": "2026-04-18",
     "day": 4,
     "category": "wwii-grandpa",
-    "location": "Höfen Memorial",
-    "caption": "Dad standing at a memorial stone near Höfen — where Grandpa was wounded",
+    "location": "H\u00f6fen Memorial",
+    "caption": "Dad standing at a memorial stone near H\u00f6fen \u2014 where Grandpa was wounded",
     "photographer": ""
   },
   {
@@ -796,7 +908,7 @@
     "day": 4,
     "category": "wwii-grandpa",
     "location": "Lanzerath",
-    "caption": "Information board at Lanzerath — the story of 2Lt Lyle Bouck and the I&R Platoon, 394th Infantry",
+    "caption": "Information board at Lanzerath \u2014 the story of 2Lt Lyle Bouck and the I&R Platoon, 394th Infantry",
     "photographer": ""
   },
   {
@@ -812,7 +924,7 @@
     "day": 4,
     "category": "wwii-grandpa",
     "location": "Lanzerath",
-    "caption": "Close-up of the Lanzerath board — Defence, December 16th 1944, unit citations and medals",
+    "caption": "Close-up of the Lanzerath board \u2014 Defence, December 16th 1944, unit citations and medals",
     "photographer": ""
   },
   {
@@ -828,7 +940,7 @@
     "day": 4,
     "category": "wwii-grandpa",
     "location": "Lanzerath",
-    "caption": "The story of 2Lt Bouck's platoon continued — every member received individual awards",
+    "caption": "The story of 2Lt Bouck's platoon continued \u2014 every member received individual awards",
     "photographer": ""
   },
   {
@@ -844,7 +956,7 @@
     "day": 4,
     "category": "wwii-grandpa",
     "location": "Lanzerath",
-    "caption": "82nd Airborne memorial plaque at Lanzerath — honoring the paratroopers who liberated Belgium",
+    "caption": "82nd Airborne memorial plaque at Lanzerath \u2014 honoring the paratroopers who liberated Belgium",
     "photographer": ""
   },
   {
@@ -860,7 +972,7 @@
     "day": 4,
     "category": "wwii-grandpa",
     "location": "Malmedy",
-    "caption": "Stone memorial in Malmedy — dedicated to prisoners of war and victims of Nazi cruelty",
+    "caption": "Stone memorial in Malmedy \u2014 dedicated to prisoners of war and victims of Nazi cruelty",
     "photographer": ""
   },
   {
@@ -876,7 +988,7 @@
     "day": 4,
     "category": "wwii-grandpa",
     "location": "Malmedy Massacre Memorial",
-    "caption": "Memorial plaque on a stone wall in Malmedy — honoring massacred U.S. soldiers",
+    "caption": "Memorial plaque on a stone wall in Malmedy \u2014 honoring massacred U.S. soldiers",
     "photographer": ""
   },
   {
@@ -892,7 +1004,7 @@
     "day": 4,
     "category": "wwii-grandpa",
     "location": "Baugnez Memorial",
-    "caption": "Memorial wall at Baugnez — individual name plaques set in stone for each soldier killed",
+    "caption": "Memorial wall at Baugnez \u2014 individual name plaques set in stone for each soldier killed",
     "photographer": ""
   },
   {
@@ -924,7 +1036,7 @@
     "day": 4,
     "category": "wwii-grandpa",
     "location": "Baugnez Memorial",
-    "caption": "Selfie next to Grandpa's name — Ch. Haines — on the Baugnez memorial wall",
+    "caption": "Selfie next to Grandpa's name \u2014 Ch. Haines \u2014 on the Baugnez memorial wall",
     "photographer": ""
   },
   {
@@ -940,7 +1052,7 @@
     "day": 4,
     "category": "wwii-grandpa",
     "location": "Baugnez Memorial",
-    "caption": "Close-up of a wartime photo collage including a 'Haines' headstone — from the memorial display",
+    "caption": "Close-up of a wartime photo collage including a 'Haines' headstone \u2014 from the memorial display",
     "photographer": ""
   },
   {
@@ -956,8 +1068,40 @@
     "day": 4,
     "category": "wwii-grandpa",
     "location": "Im Krebsloch, Aachen",
-    "caption": "Dinner napkin from Im Krebsloch restaurant in Aachen — the 10 Commandments of the Tavern",
+    "caption": "Dinner napkin from Im Krebsloch restaurant in Aachen \u2014 the 10 Commandments of the Tavern",
     "photographer": ""
+  },
+  {
+    "id": "IMG_0858",
+    "filename": "IMG_0858.HEIC",
+    "jpg": "IMG_0858.jpg",
+    "url": "https://optzbdbavpnxstpxrpbh.supabase.co/storage/v1/object/public/trip-photos/full/IMG_0858.jpg",
+    "thumb_url": "https://optzbdbavpnxstpxrpbh.supabase.co/storage/v1/object/public/trip-photos/thumbs/IMG_0858.jpg",
+    "lat": 49.75985,
+    "lng": 6.6442,
+    "timestamp": "2026-04-18T18:21:25Z",
+    "date": "2026-04-18",
+    "day": 4,
+    "category": "travel",
+    "location": "Trier",
+    "caption": "Porta Nigra, Trier",
+    "photographer": "Kara"
+  },
+  {
+    "id": "IMG_0864",
+    "filename": "IMG_0864.HEIC",
+    "jpg": "IMG_0864.jpg",
+    "url": "https://optzbdbavpnxstpxrpbh.supabase.co/storage/v1/object/public/trip-photos/full/IMG_0864.jpg",
+    "thumb_url": "https://optzbdbavpnxstpxrpbh.supabase.co/storage/v1/object/public/trip-photos/thumbs/IMG_0864.jpg",
+    "lat": 49.75983833333333,
+    "lng": 6.644236666666667,
+    "timestamp": "2026-04-18T18:22:11Z",
+    "date": "2026-04-18",
+    "day": 4,
+    "category": "travel",
+    "location": "Trier",
+    "caption": "Wandering Trier",
+    "photographer": "Kara"
   },
   {
     "id": "IMG_0017",
@@ -972,7 +1116,7 @@
     "day": 4,
     "category": "wwii-grandpa",
     "location": "Im Krebsloch, Aachen",
-    "caption": "Schnitzel and frites at Im Krebsloch — massive portion, classic German comfort food",
+    "caption": "Schnitzel and frites at Im Krebsloch \u2014 massive portion, classic German comfort food",
     "photographer": ""
   },
   {
@@ -988,7 +1132,7 @@
     "day": 4,
     "category": "wwii-grandpa",
     "location": "Im Krebsloch, Aachen",
-    "caption": "The whole crew at dinner in Aachen — everyone around the table after a heavy, meaningful day",
+    "caption": "The whole crew at dinner in Aachen \u2014 everyone around the table after a heavy, meaningful day",
     "photographer": ""
   },
   {
@@ -1004,7 +1148,7 @@
     "day": 5,
     "category": "travel",
     "location": "Aachen",
-    "caption": "Morning in Aachen — the brothers sitting on a park bench, reflecting before heading to Paris",
+    "caption": "Morning in Aachen \u2014 the brothers sitting on a park bench, reflecting before heading to Paris",
     "photographer": ""
   },
   {
@@ -1020,7 +1164,7 @@
     "day": 5,
     "category": "travel",
     "location": "Mitry-Mory, near Paris",
-    "caption": "Dinner near Paris — the four brothers with fish and chips after the long drive from Germany",
+    "caption": "Dinner near Paris \u2014 the four brothers with fish and chips after the long drive from Germany",
     "photographer": ""
   },
   {
@@ -1052,7 +1196,7 @@
     "day": 6,
     "category": "paris",
     "location": "The Louvre",
-    "caption": "Group photo in front of the Louvre — four women posing at the entrance",
+    "caption": "Group photo in front of the Louvre \u2014 four women posing at the entrance",
     "photographer": ""
   },
   {
@@ -1068,7 +1212,7 @@
     "day": 6,
     "category": "paris",
     "location": "Louvre Pyramid",
-    "caption": "Selfie at the Louvre Pyramid — blue sky, crowds, and glass geometry",
+    "caption": "Selfie at the Louvre Pyramid \u2014 blue sky, crowds, and glass geometry",
     "photographer": ""
   },
   {
@@ -1084,7 +1228,7 @@
     "day": 6,
     "category": "paris",
     "location": "Louvre Courtyard",
-    "caption": "Panoramic view of the Louvre courtyard — the Pyramid centered in the frame",
+    "caption": "Panoramic view of the Louvre courtyard \u2014 the Pyramid centered in the frame",
     "photographer": ""
   },
   {
@@ -1164,7 +1308,7 @@
     "day": 6,
     "category": "paris",
     "location": "Jardin des Tuileries",
-    "caption": "Classical statue in the Jardin des Tuileries — Roman figure against manicured hedgerows",
+    "caption": "Classical statue in the Jardin des Tuileries \u2014 Roman figure against manicured hedgerows",
     "photographer": ""
   },
   {
@@ -1180,7 +1324,7 @@
     "day": 6,
     "category": "paris",
     "location": "Pont de la Concorde",
-    "caption": "Pont de la Concorde — the Eiffel Tower visible in the distance across the bridge",
+    "caption": "Pont de la Concorde \u2014 the Eiffel Tower visible in the distance across the bridge",
     "photographer": ""
   },
   {
@@ -1212,7 +1356,7 @@
     "day": 6,
     "category": "paris",
     "location": "Paris",
-    "caption": "Selfie with the Parisian barber — fresh haircut in the city",
+    "caption": "Selfie with the Parisian barber \u2014 fresh haircut in the city",
     "photographer": ""
   },
   {
@@ -1228,7 +1372,7 @@
     "day": 6,
     "category": "paris",
     "location": "Les Invalides",
-    "caption": "Selfie in front of Les Invalides — Napoleon's tomb, cannons lining the esplanade",
+    "caption": "Selfie in front of Les Invalides \u2014 Napoleon's tomb, cannons lining the esplanade",
     "photographer": ""
   },
   {
@@ -1244,7 +1388,7 @@
     "day": 6,
     "category": "paris",
     "location": "Les Invalides",
-    "caption": "The golden dome of Les Invalides — approaching from the south lawn",
+    "caption": "The golden dome of Les Invalides \u2014 approaching from the south lawn",
     "photographer": ""
   },
   {
@@ -1259,8 +1403,8 @@
     "date": "2026-04-20",
     "day": 6,
     "category": "paris",
-    "location": "Les Invalides — Église du Dôme",
-    "caption": "Inside the Église du Dôme — selfie beneath the painted ceiling, Napoleon's tomb below",
+    "location": "Les Invalides \u2014 \u00c9glise du D\u00f4me",
+    "caption": "Inside the \u00c9glise du D\u00f4me \u2014 selfie beneath the painted ceiling, Napoleon's tomb below",
     "photographer": ""
   },
   {
@@ -1276,7 +1420,7 @@
     "day": 6,
     "category": "paris",
     "location": "Napoleon's Tomb",
-    "caption": "Napoleon's sarcophagus viewed from above — massive red porphyry tomb surrounded by marble figures",
+    "caption": "Napoleon's sarcophagus viewed from above \u2014 massive red porphyry tomb surrounded by marble figures",
     "photographer": ""
   },
   {
@@ -1308,7 +1452,7 @@
     "day": 6,
     "category": "paris",
     "location": "Les Invalides",
-    "caption": "Tomb of another marshal inside Les Invalides — ornate golden inscription",
+    "caption": "Tomb of another marshal inside Les Invalides \u2014 ornate golden inscription",
     "photographer": ""
   },
   {
@@ -1340,7 +1484,7 @@
     "day": 6,
     "category": "paris",
     "location": "Les Invalides",
-    "caption": "Selfie with the Napoleon II statue — 'Roi de Rome, 1811-1832'",
+    "caption": "Selfie with the Napoleon II statue \u2014 'Roi de Rome, 1811-1832'",
     "photographer": ""
   },
   {
@@ -1372,7 +1516,7 @@
     "day": 6,
     "category": "paris",
     "location": "Pont Alexandre III",
-    "caption": "Pont Alexandre III — golden Pegasus statues and the Grand Palais dome in the distance",
+    "caption": "Pont Alexandre III \u2014 golden Pegasus statues and the Grand Palais dome in the distance",
     "photographer": ""
   },
   {
@@ -1388,7 +1532,7 @@
     "day": 6,
     "category": "paris",
     "location": "Grand Palais",
-    "caption": "Statue of Charles de Gaulle near the Grand Palais — someone reading the plaque",
+    "caption": "Statue of Charles de Gaulle near the Grand Palais \u2014 someone reading the plaque",
     "photographer": ""
   },
   {
@@ -1404,7 +1548,7 @@
     "day": 6,
     "category": "paris",
     "location": "Jardin des Tuileries",
-    "caption": "Sailboats on the pond in the Jardin des Tuileries — a perfect Paris afternoon",
+    "caption": "Sailboats on the pond in the Jardin des Tuileries \u2014 a perfect Paris afternoon",
     "photographer": ""
   },
   {
@@ -1420,7 +1564,7 @@
     "day": 6,
     "category": "paris",
     "location": "Luxembourg Palace",
-    "caption": "The Luxembourg Palace — seat of the French Senate, viewed from the garden gates",
+    "caption": "The Luxembourg Palace \u2014 seat of the French Senate, viewed from the garden gates",
     "photographer": ""
   },
   {
@@ -1452,7 +1596,7 @@
     "day": 6,
     "category": "paris",
     "location": "Luxembourg Gardens",
-    "caption": "Together in the Luxembourg Gardens — palm trees, green grass, blue sky",
+    "caption": "Together in the Luxembourg Gardens \u2014 palm trees, green grass, blue sky",
     "photographer": ""
   },
   {
@@ -1468,7 +1612,7 @@
     "day": 6,
     "category": "paris",
     "location": "Luxembourg Gardens",
-    "caption": "Group photo at the Luxembourg Gardens fountain — three of us by the water",
+    "caption": "Group photo at the Luxembourg Gardens fountain \u2014 three of us by the water",
     "photographer": ""
   },
   {
@@ -1499,8 +1643,8 @@
     "date": "2026-04-20",
     "day": 6,
     "category": "paris",
-    "location": "Île de la Cité",
-    "caption": "Selfie on the Île de la Cité — classic Parisian buildings behind",
+    "location": "\u00cele de la Cit\u00e9",
+    "caption": "Selfie on the \u00cele de la Cit\u00e9 \u2014 classic Parisian buildings behind",
     "photographer": ""
   },
   {
@@ -1516,7 +1660,7 @@
     "day": 6,
     "category": "paris",
     "location": "Notre-Dame Cathedral",
-    "caption": "Notre-Dame Cathedral from the front — cranes still up from the restoration, crowds gathered",
+    "caption": "Notre-Dame Cathedral from the front \u2014 cranes still up from the restoration, crowds gathered",
     "photographer": ""
   },
   {
@@ -1548,7 +1692,7 @@
     "day": 6,
     "category": "paris",
     "location": "Notre-Dame Cathedral",
-    "caption": "Selfie in front of Notre-Dame — couple's photo with the twin towers behind",
+    "caption": "Selfie in front of Notre-Dame \u2014 couple's photo with the twin towers behind",
     "photographer": ""
   },
   {
@@ -1564,7 +1708,7 @@
     "day": 6,
     "category": "paris",
     "location": "Seine River",
-    "caption": "View down the Seine — bridge, houseboats, and the city beyond",
+    "caption": "View down the Seine \u2014 bridge, houseboats, and the city beyond",
     "photographer": ""
   },
   {
@@ -1580,8 +1724,24 @@
     "day": 6,
     "category": "paris",
     "location": "Seine River",
-    "caption": "Couple's photo on the Seine embankment — the river and Pont de la Tournelle behind",
+    "caption": "Couple's photo on the Seine embankment \u2014 the river and Pont de la Tournelle behind",
     "photographer": ""
+  },
+  {
+    "id": "IMG_0873",
+    "filename": "IMG_0873.HEIC",
+    "jpg": "IMG_0873.jpg",
+    "url": "https://optzbdbavpnxstpxrpbh.supabase.co/storage/v1/object/public/trip-photos/full/IMG_0873.jpg",
+    "thumb_url": "https://optzbdbavpnxstpxrpbh.supabase.co/storage/v1/object/public/trip-photos/thumbs/IMG_0873.jpg",
+    "lat": 48.85933666666666,
+    "lng": 2.339396666666667,
+    "timestamp": "2026-04-20T16:53:56Z",
+    "date": "2026-04-20",
+    "day": 6,
+    "category": "paris",
+    "location": "\u00cele de la Cit\u00e9",
+    "caption": "Notre-Dame from across the Seine",
+    "photographer": "Kara"
   },
   {
     "id": "IMG_0083",
@@ -1596,7 +1756,7 @@
     "day": 6,
     "category": "paris",
     "location": "Parisian Bistro",
-    "caption": "Dinner at a Parisian bistro — the group gathered around the table, stone walls and warm light",
+    "caption": "Dinner at a Parisian bistro \u2014 the group gathered around the table, stone walls and warm light",
     "photographer": ""
   },
   {
@@ -1612,7 +1772,7 @@
     "day": 6,
     "category": "paris",
     "location": "Parisian Bistro",
-    "caption": "Dessert at the bistro — French pastries arriving at the table",
+    "caption": "Dessert at the bistro \u2014 French pastries arriving at the table",
     "photographer": ""
   },
   {
@@ -1628,7 +1788,7 @@
     "day": 6,
     "category": "paris",
     "location": "Chez Mademoiselle, Paris",
-    "caption": "Chez Mademoiselle at night — twinkling lights, bistro chairs, our last evening in Paris",
+    "caption": "Chez Mademoiselle at night \u2014 twinkling lights, bistro chairs, our last evening in Paris",
     "photographer": ""
   },
   {
@@ -1755,7 +1915,7 @@
     "date": "2026-04-21",
     "day": 7,
     "category": "paris",
-    "location": "Notre-Dame / Île de la Cité",
+    "location": "Notre-Dame / \u00cele de la Cit\u00e9",
     "caption": "Arriving at Notre-Dame for morning Mass",
     "photographer": ""
   },
@@ -1771,7 +1931,7 @@
     "date": "2026-04-21",
     "day": 7,
     "category": "paris",
-    "location": "Notre-Dame / Île de la Cité",
+    "location": "Notre-Dame / \u00cele de la Cit\u00e9",
     "caption": "After Mass at Notre-Dame",
     "photographer": ""
   },
@@ -1787,7 +1947,7 @@
     "date": "2026-04-21",
     "day": 7,
     "category": "paris",
-    "location": "Notre-Dame / Île de la Cité",
+    "location": "Notre-Dame / \u00cele de la Cit\u00e9",
     "caption": "Notre-Dame Cathedral from the square",
     "photographer": ""
   },
@@ -1803,7 +1963,7 @@
     "date": "2026-04-21",
     "day": 7,
     "category": "paris",
-    "location": "Notre-Dame / Île de la Cité",
+    "location": "Notre-Dame / \u00cele de la Cit\u00e9",
     "caption": "Notre-Dame's western facade in morning light",
     "photographer": ""
   },
@@ -1819,7 +1979,7 @@
     "date": "2026-04-21",
     "day": 7,
     "category": "paris",
-    "location": "Notre-Dame / Île de la Cité",
+    "location": "Notre-Dame / \u00cele de la Cit\u00e9",
     "caption": "Walking along the Seine after Mass",
     "photographer": ""
   },
@@ -1835,8 +1995,8 @@
     "date": "2026-04-21",
     "day": 7,
     "category": "paris",
-    "location": "Notre-Dame / Île de la Cité",
-    "caption": "Île de la Cité on a Paris morning",
+    "location": "Notre-Dame / \u00cele de la Cit\u00e9",
+    "caption": "\u00cele de la Cit\u00e9 on a Paris morning",
     "photographer": ""
   },
   {
@@ -1964,7 +2124,7 @@
     "day": 7,
     "category": "paris",
     "location": "Arc de Triomphe",
-    "caption": "View down the Champs-Élysées from the Arc",
+    "caption": "View down the Champs-\u00c9lys\u00e9es from the Arc",
     "photographer": ""
   },
   {
@@ -2064,6 +2224,38 @@
     "photographer": ""
   },
   {
+    "id": "IMG_0879",
+    "filename": "IMG_0879.HEIC",
+    "jpg": "IMG_0879.jpg",
+    "url": "https://optzbdbavpnxstpxrpbh.supabase.co/storage/v1/object/public/trip-photos/full/IMG_0879.jpg",
+    "thumb_url": "https://optzbdbavpnxstpxrpbh.supabase.co/storage/v1/object/public/trip-photos/thumbs/IMG_0879.jpg",
+    "lat": 48.85658333333333,
+    "lng": 2.351178333333333,
+    "timestamp": "2026-04-21T16:29:19Z",
+    "date": "2026-04-21",
+    "day": 7,
+    "category": "paris",
+    "location": "Le Marais",
+    "caption": "Marais streets",
+    "photographer": "Kara"
+  },
+  {
+    "id": "IMG_0889",
+    "filename": "IMG_0889.HEIC",
+    "jpg": "IMG_0889.jpg",
+    "url": "https://optzbdbavpnxstpxrpbh.supabase.co/storage/v1/object/public/trip-photos/full/IMG_0889.jpg",
+    "thumb_url": "https://optzbdbavpnxstpxrpbh.supabase.co/storage/v1/object/public/trip-photos/thumbs/IMG_0889.jpg",
+    "lat": 48.87358833333333,
+    "lng": 2.294986666666667,
+    "timestamp": "2026-04-21T18:57:43Z",
+    "date": "2026-04-21",
+    "day": 7,
+    "category": "paris",
+    "location": "Arc de Triomphe",
+    "caption": "Arc de Triomphe",
+    "photographer": "Kara"
+  },
+  {
     "id": "IMG_0139",
     "filename": "IMG_0139.HEIC",
     "jpg": "IMG_0139.jpg",
@@ -2075,8 +2267,8 @@
     "date": "2026-04-21",
     "day": 7,
     "category": "paris",
-    "location": "Trocadéro",
-    "caption": "First look at the Eiffel Tower from Trocadéro",
+    "location": "Trocad\u00e9ro",
+    "caption": "First look at the Eiffel Tower from Trocad\u00e9ro",
     "photographer": ""
   },
   {
@@ -2107,7 +2299,7 @@
     "date": "2026-04-21",
     "day": 7,
     "category": "paris",
-    "location": "Trocadéro",
+    "location": "Trocad\u00e9ro",
     "caption": "The Eiffel Tower lit up at night",
     "photographer": ""
   },
@@ -2123,7 +2315,7 @@
     "date": "2026-04-21",
     "day": 7,
     "category": "paris",
-    "location": "Trocadéro",
+    "location": "Trocad\u00e9ro",
     "caption": "Catching the Tower mid-sparkle",
     "photographer": ""
   },
@@ -2139,7 +2331,7 @@
     "date": "2026-04-21",
     "day": 7,
     "category": "paris",
-    "location": "Trocadéro",
+    "location": "Trocad\u00e9ro",
     "caption": "Eiffel Tower glowing from across the Champ de Mars",
     "photographer": ""
   },
@@ -2155,8 +2347,24 @@
     "date": "2026-04-21",
     "day": 7,
     "category": "paris",
-    "location": "Trocadéro",
-    "caption": "Last night in Paris — the Tower at full shimmer",
+    "location": "Trocad\u00e9ro",
+    "caption": "Last night in Paris \u2014 the Tower at full shimmer",
     "photographer": ""
+  },
+  {
+    "id": "IMG_0890",
+    "filename": "IMG_0890.HEIC",
+    "jpg": "IMG_0890.jpg",
+    "url": "https://optzbdbavpnxstpxrpbh.supabase.co/storage/v1/object/public/trip-photos/full/IMG_0890.jpg",
+    "thumb_url": "https://optzbdbavpnxstpxrpbh.supabase.co/storage/v1/object/public/trip-photos/thumbs/IMG_0890.jpg",
+    "lat": 48.87358,
+    "lng": 2.294996666666667,
+    "timestamp": "2026-04-21T21:39:11Z",
+    "date": "2026-04-21",
+    "day": 7,
+    "category": "paris",
+    "location": "Arc de Triomphe",
+    "caption": "Arc de Triomphe up close",
+    "photographer": "Kara"
   }
 ]
